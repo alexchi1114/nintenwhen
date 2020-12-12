@@ -1,0 +1,236 @@
+// Bootstrap
+@import "node_modules/bootstrap/scss/bootstrap";
+@import "variables";
+
+html {
+	font-size:12px;
+
+	// Small devices (landscape phones, 34em and up)
+	@media (min-width: 34em) {
+		font-size:13px;
+	}
+
+	// Medium devices (tablets, 48em and up)
+	@media (min-width: 48em) {
+		font-size:14px;
+	}
+
+	// Large devices (desktops, 62em and up)
+	@media (min-width: 62em) {
+		font-size:15px;
+	}
+
+	// Extra large devices (large desktops, 75em and up)
+	@media (min-width: 75em) {
+		font-size:16px;
+	}
+}
+
+body {
+	color:$black;
+	font-family: 'Nunito Sans', sans-serif;
+	background-color:darken($off-white, 2%);
+}
+
+h1 {
+	font-size: 3rem;
+}
+
+.nw-nav {
+	height:50px;
+	border-bottom:1px solid lighten($gray, 50%);
+	background-color:$red;
+	color:$white;
+}
+
+.page-title {
+	margin: 2rem 0;
+	color:$black;
+
+	&.franchise-title {
+		.brackets {
+			font-size:1.2em;
+		}
+	}
+}
+
+.days-bar {
+	background-color: #dfdfdf;
+    width: 100%;
+    height: 0.8rem;
+    border-radius: 0.4rem;
+    display:flex;
+    overflow:hidden;
+
+    .center {
+    	width:1px;
+    	transform-origin:left;
+    	transition: transform 0.75s cubic-bezier(0.04, 0.6, 0.43, 1);
+    }
+
+    .left, .right {
+    	height: 100%;
+	    width: 0.4rem;
+    }
+
+    .left {
+	    border-radius: 0.4rem 0 0 0.4rem;
+    }
+
+    .right {
+    	border-radius: 0 0.4rem 0.4rem 0;
+    	transition: transform 0.75s cubic-bezier(0.04, 0.6, 0.43, 1);
+    }
+}
+
+.game-container {
+    padding: 1.4rem 0;
+	border-top: 1px solid lighten($gray, 56%);
+
+	&.upcoming-game {
+		.countdown {
+
+			.digit {
+				display:inline-block;
+				font-size:2rem;
+				font-weight:bold;
+				padding: 0 0.5rem;
+
+				.letter {
+					font-size:0.5em;
+				}
+			}
+		}
+	}
+}
+
+.game-image {
+	max-width:5rem;
+	max-height:8rem;
+}
+
+.game-diff-num-container {
+	display:inline-block;
+	padding-right:0.3rem;
+	.game-diff-num {
+	    font-size: 1.3em;
+    	font-weight: bold;
+	}
+}
+
+.game-name {
+	width:100%;
+	font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.game-tag {
+	display:inline-block;
+	color:white;
+	padding:0.2rem 0.4rem;
+	font-size:0.7rem;
+	border-radius:20px;
+}
+
+.card.filters {
+	.card-header {
+		border:none;		
+		font-size:1.3rem;
+	}
+
+	.filter-label {
+		font-weight:bold;
+		font-size:1.1rem;
+	}
+}
+
+.franchise-overview-card {
+	font-size:0.8rem;
+	font-weight:bold;
+	text-align:center;
+	color:black;
+
+	h2 {
+		font-size:0.9rem;
+		font-weight:bold;
+	}
+
+	.game-diff-container {
+		font-size:0.7rem;
+	}
+}
+
+.face-status {
+	
+	font-size:1.2rem;
+
+	&.good {
+		color:#7AC74F;
+	}
+
+	&.neutral {
+		color:#F24236;
+	}
+
+	&.bad {
+		color:#F57C01;
+	}
+
+	&.dead {
+		color:#F24236;
+	}
+}
+
+#franchise-name-container {
+	max-width:540px;
+}
+
+#loader-container {
+	display:none;
+	position:fixed;
+	padding:1rem;
+	margin:5% auto;
+	border-radius:100%;
+	background-color:$white;
+	border:2px solid $red;
+	top: 50%;
+	left: 50%;
+	margin-top: calc(-40px - 1rem); /* Negative half of height. */
+	margin-left: calc(-40px - 1rem); /* Negative half of width. */
+}
+.loader {
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.loader div {
+  display: inline-block;
+  background-color:$red;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  animation: loader 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+.loader div:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+.loader div:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+.loader div:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+@keyframes loader {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+

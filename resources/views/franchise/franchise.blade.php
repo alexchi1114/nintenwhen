@@ -1,0 +1,176 @@
+@extends('layouts.layout')
+@section('content')
+	<nav>
+	    <ol class="breadcrumb">
+	        <li class="breadcrumb-item"><a href="/franchise">Franchises</a></li>
+	        <li class="breadcrumb-item active">{{ $franchise->name }}</li>
+	    </ol>
+	</nav>
+
+	<div class="text-center">
+		<h1 class="page-title franchise-title" id="page-title">{{ $franchise->name }}</h1>
+	</div>
+
+	@if($upcoming_games !== null && $upcoming_games->count() > 0)
+		<div class="card w-100 mb-4">
+			<div class="card-body">
+				<h2>Upcoming Games</h2>
+				@foreach($upcoming_games as $game)
+				<div class="row game-container upcoming-game">
+					<div class="col-sm-6 col-md-4">
+						<!-- <img class="game-image mr-3" src="/images/{{ $game->img_path }}"> -->
+						<div class="game-name">{{ $game->name }}</div>
+						@foreach($game->tags->sortBy('display_name') as $tag)
+						<div class="game-tag" style="background-color:#{{ $tag->color_hex }}">
+							{{ $tag->display_name }}
+						</div>
+						@endforeach
+					</div>
+					<div class="col-sm-6 col-md-2">
+						<div>
+							{{ $game->release_date === null ? "TBA" : $game->release_date->format('M d Y')}}
+						</div>
+						<div>
+							{{ $game->systems->implode('name', '/') }}
+						</div>
+					</div>
+					<div class="col-sm-6 col-md-4">
+						@if($game->release_date !== null)
+							<div class="countdown" data-date="{{ $game->release_date }}">
+								<div class="digit">--<span class="letter">d</span></div>
+								<div class="digit">--<span class="letter">h</span></div>
+								<div class="digit">--<span class="letter">m</span></div>
+								<div class="digit">--<span class="letter">s</span></div>
+							</div>
+						@endif
+					</div>
+					<div class="col-sm-6 col-md-2">
+						<a href="{{ $game->preorder_link }}" target="_blank" class="btn btn-primary">
+							Pre-order on Amazon
+						</a>
+					</div>
+				</div>
+				@endforeach
+			</div>	
+		</div>
+	@endif	
+
+	<div class="card w-100 mb-4">
+		<div class="card-body">
+
+			<div class = "card w-100 mb-4 filters">
+				<button class="card-header d-flex align-items-center" data-toggle="collapse" data-target="#searchFormContainer" id="filtersToggle">
+					Filters
+					<div class="ml-auto d-inline-block expand"><i class="fas fa-caret-down"></i></div>
+				</button>
+				<div class="card-body collapse" id="searchFormContainer">
+					<form name="searchForm" id="search-form">
+						@if($children !== null && $children->count() > 0)
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="form-group">
+									<label for="seriesSelect" class="filter-label">Series</label>
+									<select name="series" id="seriesSelect" class="form-control" data-search-field>
+										<option>Select One</option>
+										@foreach($children as $child) 
+											@if($child->id == $selected_franchise)
+												<option value="{{ $child->id }}" selected>{{ $child->name }}</option>
+											@else
+												<option value="{{ $child->id }}">{{ $child->name }}</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
+							</div>
+						</div>
+						@endif
+
+						<fieldset class="form-group">
+							<legend class="filter-label">Tags</legend>
+							<div class="row">
+								@foreach($tags as $tag)
+									<div class="col-6 col-sm-4 col-md-2">
+										<div class="form-check">
+											<input name="tag[]" value="{{ $tag->id }}" class="form-check-input" type="checkbox" id="{{ $tag->code }}" data-search-field>
+											<label class="form-check-label" for="{{ $tag->code }}">
+												{{ $tag->display_name }}
+											</label>
+									    </div>
+									</div>
+								@endforeach
+							</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>	
+
+			<div id="games-container" class="w-100">
+				@include('franchise.games')	
+			</div>
+		</div>
+	</div>
+@stop   
+
+@section('scripts')
+	<script type="text/javascript">
+		$("#searchFormContainer").on('show.bs.collapse', function (e) {
+			$("#filtersToggle").find(".expand").first().html("<i class='fas fa-caret-up'></i>");
+		});
+
+		$("#searchFormContainer").on('hide.bs.collapse', function (e) {
+			$("#filtersToggle").find(".expand").first().html("<i class='fas fa-caret-down'></i>");
+		});
+
+		$(document).ready(function(){
+			$(".days-bar").each(function(){
+				let $center = $(this).find(".center").first();
+				let end_width = $(this).find(".left").first().width();
+				let center_width = ($center.data("width") * $(this).width()) - end_width;
+				let left_translation = Math.floor(center_width) - 1
+
+				$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
+				$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
+
+			});
+		});
+
+		$("[data-search-field]").on("change", search);
+
+		function search(){
+
+			var tagData = $("input[name='tag[]']:checked").map(function () {
+      			return this.value;
+		  	}).get();
+
+		  	let child_franchise_id = isNaN(parseInt($("#seriesSelect").val())) ? null : parseInt($("#seriesSelect").val());
+
+		  	$("#loader-container").show();
+
+			var searchData = {
+				tags: tagData,
+				franchise_id: {{ $franchise->id }},
+				child_franchise_id: child_franchise_id
+			}
+			axios.post('/franchise/search/', searchData, {
+				  headers: { 'Content-Type': 'application/json' }
+				})
+				.then(function (response) {
+					$("#games-container").html(response.data);
+					$("#loader-container").hide();
+					$(".days-bar").each(function(){
+						let $center = $(this).find(".center").first();
+						let end_width = $(this).find(".left").first().width();
+						let center_width = ($center.data("width") * $(this).width()) - end_width;
+						let left_translation = Math.floor(center_width) - 1
+
+						$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
+						$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)")
+					});
+				})
+				.catch(function (error) {
+					console.log(error);
+			});
+		}
+
+	</script>
+@stop
