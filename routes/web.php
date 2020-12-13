@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FranchiseController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,7 +15,7 @@ use App\Http\Controllers\FranchiseController;
 |
 */
 
-Route::get('/', [FranchiseController::class, 'index']);
+Route::get('/', [HomeController::class, 'index']);
 Route::get('/franchise', [FranchiseController::class, 'index']);
 Route::get('/franchise/{id}', [FranchiseController::class, 'show']);
 Route::post('/franchise/search', [FranchiseController::class, 'search']);

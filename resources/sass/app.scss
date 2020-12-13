@@ -1,6 +1,9 @@
 // Bootstrap
-@import "node_modules/bootstrap/scss/bootstrap";
 @import "variables";
+@import "bootstrap-overrides";
+@import "node_modules/bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 html {
 	font-size:12px;
@@ -27,13 +30,50 @@ html {
 }
 
 body {
-	color:$black;
-	font-family: 'Nunito Sans', sans-serif;
-	background-color:darken($off-white, 2%);
+	color:$dark-gray;
+	font-family: 'Roboto', sans-serif;
+	background-color:darken($off-white, 5%);
+}
+
+main {
+	margin-top:1rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Archivo Black', sans-serif;
+	text-transform:uppercase;
+	color:$dark-gray;
 }
 
 h1 {
-	font-size: 3rem;
+	font-size: 2.6rem;
+}
+
+h2 {
+	font-size:2.2rem;
+}
+
+h3 {
+	font-size:1.8rem;
+}
+
+h4 {
+	font-size:1.4rem;
+}
+
+h5 {
+	font-size:1rem;
+}
+
+h6 {
+	font-size:0.6rem;
+}
+
+#site-logo-container {
+	font-family: 'Archivo Black', sans-serif;
+	color:$off-white;
+	font-size:23px;
+	text-transform:uppercase;
 }
 
 .nw-nav {
@@ -44,8 +84,8 @@ h1 {
 }
 
 .page-title {
-	margin: 2rem 0;
 	color:$black;
+	margin-bottom:1rem;
 
 	&.franchise-title {
 		.brackets {
@@ -58,7 +98,6 @@ h1 {
 	background-color: #dfdfdf;
     width: 100%;
     height: 0.8rem;
-    border-radius: 0.4rem;
     display:flex;
     overflow:hidden;
 
@@ -73,12 +112,7 @@ h1 {
 	    width: 0.4rem;
     }
 
-    .left {
-	    border-radius: 0.4rem 0 0 0.4rem;
-    }
-
     .right {
-    	border-radius: 0 0.4rem 0.4rem 0;
     	transition: transform 0.75s cubic-bezier(0.04, 0.6, 0.43, 1);
     }
 }
@@ -120,8 +154,7 @@ h1 {
 
 .game-name {
 	width:100%;
-	font-size: 1.2rem;
-    font-weight: bold;
+	font-size: 1rem;
 }
 
 .game-tag {
@@ -129,7 +162,6 @@ h1 {
 	color:white;
 	padding:0.2rem 0.4rem;
 	font-size:0.7rem;
-	border-radius:20px;
 }
 
 .card.filters {
@@ -139,8 +171,9 @@ h1 {
 	}
 
 	.filter-label {
-		font-weight:bold;
+		text-transform:uppercase;
 		font-size:1.1rem;
+		font-family: 'Archivo Black', sans-serif;
 	}
 }
 
@@ -153,6 +186,10 @@ h1 {
 	h2 {
 		font-size:0.9rem;
 		font-weight:bold;
+	}
+
+	h3 {
+	font-size:0.8rem;
 	}
 
 	.game-diff-container {

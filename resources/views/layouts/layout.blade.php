@@ -12,16 +12,16 @@
 
     @include('includes.header')
 
-    <div class="container-lg" id="main">
+    <main class="container-lg" id="main">
       @yield('content')
-    </div>
+    </main>
 
 
-     <footer class="row">
+    <footer class="row">
 
         @include('includes.footer')
 
-     </footer>
+    </footer>
 
     <div id='loader-container'>
       <div class='loader'>
@@ -30,6 +30,7 @@
         <div></div>
       </div>
     </div>
+
     <script type="text/javascript" src="/js/app.js"></script>
     @yield('scripts')
   </body>

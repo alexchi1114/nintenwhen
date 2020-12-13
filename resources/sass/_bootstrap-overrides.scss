@@ -1,0 +1,54 @@
+/* Jumbotron */
+$jumbotron-bg: #fff;
+.jumbotron {
+	border-radius:0 !important;
+	margin:1rem 0 !important;
+}
+
+/* Cards */
+$card-border-width: 0;
+$card-border-radius:0;
+$card-border-color:rgba($dark-red, 0.175);
+$card-cap-bg:$joycon-blue-dark;
+$card-cap-color:$off-white;
+
+
+
+/* Forms */
+$input-color: $dark-red;
+$input-border-color: rgba($red, 0.3);
+$input-border-width:0;
+.form-control {
+	border-radius:0 !important;
+}
+
+
+/* Breadcrumbs */
+$breadcrumb-bg: $dark-red;
+$breadcrumb-border-radius:0;
+$breadcrumb-divider-color:$off-white;
+$breadcrumb-active-color:$off-white;
+
+.breadcrumb {
+	display:inline-flex !important;	
+	position:relative;	
+	text-transform:uppercase;
+	font-family: 'Archivo Black', sans-serif;
+
+	.breadcrumb-item {
+		font-size:0.7rem;
+		a {
+			color:$off-white;
+			text-decoration:underline;
+
+			&:hover {
+				color:darken($off-white, 20%);
+			}
+		}
+
+		&.active {
+			font-size:0.8rem;
+			font-weight:bold;
+		}
+	}
+}

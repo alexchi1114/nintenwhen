@@ -1,14 +1,16 @@
 @extends('layouts.layout')
+@section('pageTitle', $franchise->name . ' - Franchises')
 @section('content')
 	<nav>
 	    <ol class="breadcrumb">
+	    	<li class="breadcrumb-item"><a href="/">Home</a></li>
 	        <li class="breadcrumb-item"><a href="/franchise">Franchises</a></li>
 	        <li class="breadcrumb-item active">{{ $franchise->name }}</li>
 	    </ol>
 	</nav>
 
 	<div class="text-center">
-		<h1 class="page-title franchise-title" id="page-title">{{ $franchise->name }}</h1>
+		<h1 class="page-title franchise-title" id="page-title" style="border-bottom-color:#{{ $franchise->primary_theme_color_hex }}">{{ $franchise->name }}</h1>
 	</div>
 
 	@if($upcoming_games !== null && $upcoming_games->count() > 0)
@@ -59,11 +61,7 @@
 		<div class="card-body">
 
 			<div class = "card w-100 mb-4 filters">
-				<button class="card-header d-flex align-items-center" data-toggle="collapse" data-target="#searchFormContainer" id="filtersToggle">
-					Filters
-					<div class="ml-auto d-inline-block expand"><i class="fas fa-caret-down"></i></div>
-				</button>
-				<div class="card-body collapse" id="searchFormContainer">
+				<div class="card-body" id="searchFormContainer">
 					<form name="searchForm" id="search-form">
 						@if($children !== null && $children->count() > 0)
 						<div class="row">

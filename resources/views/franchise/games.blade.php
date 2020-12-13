@@ -1,6 +1,6 @@
 @if(sizeof($games) > 0)
 	<div class="container-fluid mb-4">
-		<h2 class="mb-0">Since Last Release</h2>
+		<h3 class="mb-0">Since Last Release</h3>
 		<div class="game-diff-container">
 			@php
 				$last_release_years = $games[0]->release_date->diff(\Carbon\Carbon::now())->format('%y');
@@ -31,7 +31,7 @@
 			<div class="right" style="background-color:#{{$franchise->primary_theme_color_hex}};"></div>
 		</div>
 
-		<h2 class="mb-0">Average</h2>
+		<h3 class="mb-0">Average</h3>
 		<div class="game-diff-container">
 			@if($avg_release_years != "0")
 				<div class="game-diff-num-container"><span class="game-diff-num">{{ $avg_release_years }} </span>years</div>
@@ -68,18 +68,18 @@
 			@endphp
 
 			<div class="row game-container align-items-center">
-				<div class="col-3 col-md-2">
+				<div class="col-12 col-md-4">
 					<!-- <img class="game-image mr-3" src="/images/{{ $game->img_path }}"> -->
-					<div class="game-name">{{ $game->name }}</div>
+					<h4 class="game-name">{{ $game->name }}</h4>
 				</div>
-				<div class="col-3 col-md-2">
+				<div class="col-md-2 d-none d-md-block">
 					@foreach($game->tags->sortBy('display_name') as $tag)
 					<div class="game-tag" style="background-color:#{{ $franchise->secondary_theme_color_hex }}">
 						{{ $tag->display_name }}
 					</div>
 					@endforeach
 				</div>
-				<div class="col-6 col-md-2">
+				<div class="col-md-2 d-none d-md-block">
 					<div>
 						{{ $game->release_date === null ? "TBA" : $game->release_date->format('M d Y')}}
 					</div>
@@ -88,7 +88,7 @@
 						{{ $game->systems->implode('name', '/') }}
 					</div>
 				</div>
-				<div class="col-12 col-md-6 d-flex flex-column justify-content-center">
+				<div class="col-12 col-md-4 d-flex flex-column justify-content-center">
 					<div class="game-diff-container">
 						@if(isset($games[$i + 1]))
 							@if($days_diff_years != "0")
