@@ -21,11 +21,11 @@
 				<h3 class="game-name">{{ $game->name }}</h3>
 				@if($game->release_date !== null)
 					<div class="countdown-container" style="background-color:#{{ $game->franchise->primary_theme_color_hex }}">
-						<div class="countdown text-center" data-date="{{ $game->release_date }}">	
-							<div class="digit">--<span class="letter" translate="no">d</span></div>
-							<div class="digit">--<span class="letter" translate="no">h</span></div>
-							<div class="digit">--<span class="letter" translate="no">m</span></div>
-							<div class="digit">--<span class="letter" translate="no">s</span></div>
+						<div class="countdown text-center" data-date="{{ $game->release_date }}" translate="no">	
+							<div class="digit">--<span class="letter">d</span></div>
+							<div class="digit">--<span class="letter">h</span></div>
+							<div class="digit">--<span class="letter">m</span></div>
+							<div class="digit">--<span class="letter">s</span></div>
 						</div>
 					</div>
 				@else
