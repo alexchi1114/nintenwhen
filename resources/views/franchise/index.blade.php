@@ -53,15 +53,15 @@
 							@endphp
 
 							@if($last_release_years != "0")
-								<div class="game-diff-num-container"><span class="game-diff-num">{{ $last_release_years }} </span>y</div>
+								<div class="game-diff-num-container" translate="no"><span class="game-diff-num">{{ $last_release_years }} </span>y</div>
 							@endif
 
 							@if($last_release_months != "0")
-								<div class="game-diff-num-container"><span class="game-diff-num"> {{ $last_release_months }} </span>m</div>
+								<div class="game-diff-num-container" translate="no"><span class="game-diff-num"> {{ $last_release_months }} </span>m</div>
 							@endif
 
 							@if($last_release_days != "0")
-								<div class="game-diff-num-container"><span class="game-diff-num"> {{ $last_release_days }} </span>d</div>
+								<div class="game-diff-num-container" translate="no"><span class="game-diff-num"> {{ $last_release_days }} </span>d</div>
 							@endif
 						</div>
 
@@ -74,15 +74,15 @@
 						<h3 class="mb-0">Average</h3>
 						<div class="game-diff-container">
 							@if($avg_release_years != "0")
-								<div class="game-diff-num-container"><span class="game-diff-num">{{ $avg_release_years }} </span>y</div>
+								<div class="game-diff-num-container" translate="no"><span class="game-diff-num">{{ $avg_release_years }} </span>y</div>
 							@endif
 
 							@if($avg_release_months != "0")
-								<div class="game-diff-num-container"><span class="game-diff-num"> {{ $avg_release_months }} </span>m</div>
+								<div class="game-diff-num-container" translate="no"><span class="game-diff-num"> {{ $avg_release_months }} </span>m</div>
 							@endif
 
 							@if($avg_release_days != "0")
-								<div class="game-diff-num-container"><span class="game-diff-num"> {{ $avg_release_days }} </span>d</div>
+								<div class="game-diff-num-container" translate="no"><span class="game-diff-num"> {{ $avg_release_days }} </span>d</div>
 							@endif
 						</div>
 
@@ -106,7 +106,7 @@
 				let $center = $(this).find(".center").first();
 				let end_width = $(this).find(".left").first().width();
 				let center_width = ($center.data("width") * $(this).width()) - end_width;
-				let left_translation = Math.floor(center_width) - 1
+				let left_translation = Math.floor(center_width) - 3
 
 				$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
 				$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
