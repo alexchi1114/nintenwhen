@@ -72,7 +72,7 @@
 									<div class="col-6 col-sm-4 col-md-2">
 										<div class="form-check">
 											<input name="tag[]" value="{{ $tag->id }}" class="form-check-input" type="checkbox" id="{{ $tag->code }}" data-search-field>
-											<label class="form-check-label css-" for="{{ $tag->code }}">
+											<label class="form-check-label" for="{{ $tag->code }}">
 												{{ $tag->display_name }}s
 											</label>
 									    </div>

@@ -49,6 +49,10 @@
   color: #D3CE46;
 }
 
+.form-check-label {
+  padding-left: 0.25rem !important;
+}
+
 /* Buttons */
 
 /* Theme Colors */
@@ -11164,7 +11168,7 @@ h6 {
 }
 
 .franchise-overview-card h2 {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: bold;
 }
 
