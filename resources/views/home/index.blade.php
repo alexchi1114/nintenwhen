@@ -7,7 +7,7 @@
 		<div class="jumbotron">
 		  <h1 class="display-4">Nintenwhen</h1>
 		  <p class="lead">Predict the next release dates for you favorite Nintendo franchises.</p>
-		  <a class="btn btn-primary" href="/franchise" role="button">View all franchises</a>
+		  <a class="btn btn-lg btn-primary" href="/franchise" role="button">View all franchises</a>
 		</div>
 	</div>
 </div>
@@ -41,7 +41,7 @@
 		<div class="jumbotron small-padding">
 			<h2>Series to Watch</h2>
 			@foreach($franchises_to_watch as $franchise)
-			<div class="franchise-container">
+			<div class="franchise-container py-4">
 				<h3 class="franchise-title"><a href="/franchise/{{ $franchise->id }}">{{ $franchise->name }}</a></h3>
 				<h4 class="mb-0">Since Last Release</h4>
 				<div class="game-diff-container">

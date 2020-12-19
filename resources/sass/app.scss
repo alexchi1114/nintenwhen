@@ -7,6 +7,8 @@
 
 html {
 	font-size:12px;
+	height:100%;
+	overflow-y:scroll;
 
 	// Small devices (landscape phones, 34em and up)
 	@media (min-width: 34em) {
@@ -30,6 +32,7 @@ html {
 }
 
 body {
+	height:100%;
 	color:$dark-gray;
 	font-family: 'Roboto', sans-serif;
 	background-color:darken($off-white, 5%);
@@ -258,8 +261,6 @@ h6 {
 }
 
 .franchise-container {
-
-	padding: 1rem 0;
 	
 	&:not(:last-child) {
     	border-bottom: 1px solid lighten($gray, 56%);
@@ -334,3 +335,9 @@ h6 {
   }
 }
 
+
+/* Checkboxes */
+
+.form-check {
+	margin:0.25rem;
+}

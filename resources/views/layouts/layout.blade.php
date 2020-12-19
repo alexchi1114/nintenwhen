@@ -16,13 +16,6 @@
       @yield('content')
     </main>
 
-
-    <footer class="row">
-
-        @include('includes.footer')
-
-    </footer>
-
     <div id='loader-container'>
       <div class='loader'>
         <div></div>

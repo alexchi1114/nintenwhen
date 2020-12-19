@@ -18,40 +18,22 @@
 			<div class="card-body">
 				<h2>Upcoming Games</h2>
 				@foreach($upcoming_games as $game)
-				<div class="row game-container upcoming-game">
-					<div class="col-sm-6 col-md-4">
-						<!-- <img class="game-image mr-3" src="/images/{{ $game->img_path }}"> -->
-						<div class="game-name">{{ $game->name }}</div>
-						@foreach($game->tags->sortBy('display_name') as $tag)
-						<div class="game-tag" style="background-color:#{{ $tag->color_hex }}">
-							{{ $tag->display_name }}
-						</div>
-						@endforeach
-					</div>
-					<div class="col-sm-6 col-md-2">
-						<div>
-							{{ $game->release_date === null ? "TBA" : $game->release_date->format('M d Y')}}
-						</div>
-						<div>
-							{{ $game->systems->implode('name', '/') }}
-						</div>
-					</div>
-					<div class="col-sm-6 col-md-4">
+					<div class="upcoming-game game-container">
+						<h3 class="game-name">{{ $game->name }}</h3>
 						@if($game->release_date !== null)
-							<div class="countdown" data-date="{{ $game->release_date }}">
-								<div class="digit">--<span class="letter">d</span></div>
-								<div class="digit">--<span class="letter">h</span></div>
-								<div class="digit">--<span class="letter">m</span></div>
-								<div class="digit">--<span class="letter">s</span></div>
+							<div class="countdown-container" style="background-color:#{{ $game->franchise->primary_theme_color_hex }}">
+								<div class="countdown text-center" data-date="{{ $game->release_date }}">	
+									<div class="digit">--<span class="letter">d</span></div>
+									<div class="digit">--<span class="letter">h</span></div>
+									<div class="digit">--<span class="letter">m</span></div>
+									<div class="digit">--<span class="letter">s</span></div>
+								</div>
 							</div>
+						@else
+							<div class="tbd">TBA</div>
 						@endif
+
 					</div>
-					<div class="col-sm-6 col-md-2">
-						<a href="{{ $game->preorder_link }}" target="_blank" class="btn btn-primary">
-							Pre-order on Amazon
-						</a>
-					</div>
-				</div>
 				@endforeach
 			</div>	
 		</div>
@@ -90,7 +72,7 @@
 									<div class="col-6 col-sm-4 col-md-2">
 										<div class="form-check">
 											<input name="tag[]" value="{{ $tag->id }}" class="form-check-input" type="checkbox" id="{{ $tag->code }}" data-search-field>
-											<label class="form-check-label" for="{{ $tag->code }}">
+											<label class="form-check-label css-" for="{{ $tag->code }}">
 												{{ $tag->display_name }}s
 											</label>
 									    </div>
