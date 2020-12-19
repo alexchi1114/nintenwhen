@@ -7,6 +7,20 @@ use App\Models\Game;
 
 class Franchise extends Model
 {
+
+    //Accessors
+    public function getPrimaryThemeColorHexAttribute($value)
+    {
+        $parent = self::find($this->parent_franchise_id);
+        if($value!== null && $value!== "") {
+            return $value;
+        } else if($parent !== null && $parent->primary_theme_color_hex !== null) {
+            return $parent->primary_theme_color_hex;
+        } else {
+            return null;
+        }
+    }
+
     public function games()
     {
     	return $this->hasMany(Game::class);
@@ -50,13 +64,13 @@ class Franchise extends Model
 
     public function getStatus()
     {
-    	$avg = $this->getAvgDaysBetweenReleases();
-    	$days= $this->getDaysSinceLastRelease();
-    	if($avg == 0 || $avg == null) {
-    		return "dead";
-    	}
+        $days= $this->getDaysSinceLastRelease();
 
-    	$r = $days / $avg;
+    	$r = $this->getR();
+
+        if($r == null) {
+            return "dead";
+        }
 
     	if($days > 10*365 || ($r > 4 && $days > 8*365) || ($days > 8*365 && $this->games->count() < 4)) {
     		return "dead";
@@ -71,10 +85,20 @@ class Franchise extends Model
     	}
     }
 
+    public function getR(){
+        $avg = $this->getAvgDaysBetweenReleases();
+        $days= $this->getDaysSinceLastRelease();
+        if($avg == 0 || $avg == null) {
+            return null;
+        }
+
+        return ($days / $avg) * $this->predict_multiplier;
+    }
+
     public static function getFranchisesToWatch()
     {   
     	$franchises = Franchise::all()->filter(function($franchise) {
-            if($franchise->games->count() === 0) {
+            if($franchise->games->count() === 0 || ($franchise->parent_franchise_id == null && $franchise->where('parent_franchise_id', $franchise->id)->count() > 0)) {
                 return false;
             }
     		$status = $franchise->getStatus();
@@ -95,6 +119,8 @@ class Franchise extends Model
     		}
     	});
 
-        return $franchises;
+        return $franchises->sort(function($a, $b) {
+            return $a->getR() < $b->getR();
+        });
     }
 }

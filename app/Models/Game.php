@@ -17,6 +17,11 @@ class Game extends Model
 	   return $this->belongsToMany(Tag::class);
 	}
 
+	public function franchise()
+	{
+		return $this->belongsTo(Franchise::class);
+	}
+
 	public function systems()
 	{
 		return $this->belongsToMany(System::class);

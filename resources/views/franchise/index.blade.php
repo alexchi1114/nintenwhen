@@ -9,7 +9,7 @@
 	</nav>
 
 	<div class="text-center">
-		<h1 class="page-title mb-4" id="page-title">Franchises</h1>
+		<h1 class="page-title" id="page-title">Franchises</h1>
 		<div class="container mb-4" id="franchise-name-container">
 			<input name="franchise-name" id="franchise-name" class="form-control" aria-label="Search for a franchise by name" placeholder="Seach by name" />
 		</div>

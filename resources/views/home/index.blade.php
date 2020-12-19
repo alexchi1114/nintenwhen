@@ -1,67 +1,48 @@
 @extends('layouts.layout')
+@section('pageTitle', 'Home')
 @section('content')
 
 <div class="row">
 	<div class="col-12">
 		<div class="jumbotron">
 		  <h1 class="display-4">Nintenwhen</h1>
-		  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-		  <hr class="my-4">
-		  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+		  <p class="lead">Predict the next release dates for you favorite Nintendo franchises.</p>
 		  <a class="btn btn-primary" href="/franchise" role="button">View all franchises</a>
 		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-12 col-md-6">
-		<div class="jumbotron">
+	<div class="col-12 col-md-5">
+		<div class="jumbotron small-padding">
 			<h2>Upcoming Games</h2>
 			@foreach($upcoming_games as $game)
-			<div class="row game-container upcoming-game">
-				<div class="col-sm-6 col-md-4">
-					<!-- <img class="game-image mr-3" src="/images/{{ $game->img_path }}"> -->
-					<div class="game-name">{{ $game->name }}</div>
-					@foreach($game->tags->sortBy('display_name') as $tag)
-					<div class="game-tag" style="background-color:#{{ $tag->color_hex }}">
-						{{ $tag->display_name }}
-					</div>
-					@endforeach
-				</div>
-				<div class="col-sm-6 col-md-2">
-					<div>
-						{{ $game->release_date === null ? "TBA" : $game->release_date->format('M d Y')}}
-					</div>
-					<div>
-						{{ $game->systems->implode('name', '/') }}
-					</div>
-				</div>
-				<div class="col-sm-6 col-md-4">
-					@if($game->release_date !== null)
-						<div class="countdown" data-date="{{ $game->release_date }}">
+			<div class="upcoming-game game-container">
+				<h3 class="game-name">{{ $game->name }}</h3>
+				@if($game->release_date !== null)
+					<div class="countdown-container" style="background-color:#{{ $game->franchise->primary_theme_color_hex }}">
+						<div class="countdown text-center" data-date="{{ $game->release_date }}">	
 							<div class="digit">--<span class="letter">d</span></div>
 							<div class="digit">--<span class="letter">h</span></div>
 							<div class="digit">--<span class="letter">m</span></div>
 							<div class="digit">--<span class="letter">s</span></div>
 						</div>
-					@endif
-				</div>
-				<div class="col-sm-6 col-md-2">
-					<a href="{{ $game->preorder_link }}" target="_blank" class="btn btn-primary">
-						Pre-order on Amazon
-					</a>
-				</div>
+					</div>
+				@else
+					<div class="tbd">TBA</div>
+				@endif
+
 			</div>
 			@endforeach
 		</div>
 		
 	</div>
-	<div class="col-12 col-md-6">
-		<div class="jumbotron">
+	<div class="col-12 col-md-7">
+		<div class="jumbotron small-padding">
 			<h2>Series to Watch</h2>
 			@foreach($franchises_to_watch as $franchise)
-			<a class="franchise-container" href="/franchise/{{ $franchise->id }}">
-				<h3 class="franchise-title">{{ $franchise->name }}</h3>
+			<div class="franchise-container">
+				<h3 class="franchise-title"><a href="/franchise/{{ $franchise->id }}">{{ $franchise->name }}</a></h3>
 				<h4 class="mb-0">Since Last Release</h4>
 				<div class="game-diff-container">
 					@php
@@ -117,7 +98,7 @@
 					<div class="center" data-width="{{ $avg_width }}" style="background-color:#{{$franchise->primary_theme_color_hex}};"></div>
 					<div class="right" style="background-color:#{{$franchise->primary_theme_color_hex}};"></div>
 				</div>
-			</a>
+			</div>
 			@endforeach
 		</div>
 	</div>

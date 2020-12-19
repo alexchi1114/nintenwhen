@@ -3,6 +3,10 @@ $jumbotron-bg: #fff;
 .jumbotron {
 	border-radius:0 !important;
 	margin:1rem 0 !important;
+
+	&.small-padding {
+		padding:2rem 2rem;
+	}
 }
 
 /* Cards */
@@ -17,7 +21,6 @@ $card-cap-color:$off-white;
 /* Forms */
 $input-color: $dark-red;
 $input-border-color: rgba($red, 0.3);
-$input-border-width:0;
 .form-control {
 	border-radius:0 !important;
 }
@@ -25,9 +28,10 @@ $input-border-width:0;
 
 /* Breadcrumbs */
 $breadcrumb-bg: $dark-red;
-$breadcrumb-border-radius:0;
+$breadcrumb-border-radius:2rem;
 $breadcrumb-divider-color:$off-white;
 $breadcrumb-active-color:$off-white;
+$breadcrumb-padding-y:0.5rem;
 
 .breadcrumb {
 	display:inline-flex !important;	
@@ -47,8 +51,17 @@ $breadcrumb-active-color:$off-white;
 		}
 
 		&.active {
-			font-size:0.8rem;
 			font-weight:bold;
+			color:$zelda-gold;
 		}
 	}
 }
+
+/* Buttons */
+$btn-border-radius: 0;
+
+/* Theme Colors */
+$theme-colors: (
+  "primary": $joycon-blue-dark,
+  "secondary": $zelda-gold
+);

@@ -60,14 +60,14 @@
 	<div class="card w-100 mb-4">
 		<div class="card-body">
 
-			<div class = "card w-100 mb-4 filters">
+			<div class = "card w-100 mb-0 filters">
 				<div class="card-body" id="searchFormContainer">
 					<form name="searchForm" id="search-form">
 						@if($children !== null && $children->count() > 0)
 						<div class="row">
 							<div class="col-12 col-md-6">
 								<div class="form-group">
-									<label for="seriesSelect" class="filter-label">Series</label>
+									<label for="seriesSelect" class="filter-label">Subseries</label>
 									<select name="series" id="seriesSelect" class="form-control" data-search-field>
 										<option>Select One</option>
 										@foreach($children as $child) 
@@ -84,14 +84,14 @@
 						@endif
 
 						<fieldset class="form-group">
-							<legend class="filter-label">Tags</legend>
+							<legend class="filter-label">Exclude</legend>
 							<div class="row">
 								@foreach($tags as $tag)
 									<div class="col-6 col-sm-4 col-md-2">
 										<div class="form-check">
 											<input name="tag[]" value="{{ $tag->id }}" class="form-check-input" type="checkbox" id="{{ $tag->code }}" data-search-field>
 											<label class="form-check-label" for="{{ $tag->code }}">
-												{{ $tag->display_name }}
+												{{ $tag->display_name }}s
 											</label>
 									    </div>
 									</div>

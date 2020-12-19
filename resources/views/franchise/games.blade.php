@@ -1,6 +1,6 @@
 @if(sizeof($games) > 0)
 	<div class="container-fluid mb-4">
-		<h3 class="mb-0">Since Last Release</h3>
+		<h2 class="mb-0">Since Last Release</h2>
 		<div class="game-diff-container">
 			@php
 				$last_release_years = $games[0]->release_date->diff(\Carbon\Carbon::now())->format('%y');
@@ -31,7 +31,7 @@
 			<div class="right" style="background-color:#{{$franchise->primary_theme_color_hex}};"></div>
 		</div>
 
-		<h3 class="mb-0">Average</h3>
+		<h2 class="mb-0">Average</h2>
 		<div class="game-diff-container">
 			@if($avg_release_years != "0")
 				<div class="game-diff-num-container"><span class="game-diff-num">{{ $avg_release_years }} </span>years</div>
@@ -55,7 +55,6 @@
 	</div>
 
 	<div class="container-fluid franchise-container">
-		{{ $games->count() }} games
 		@foreach($games as $i => $game)
 			@php
 				$days_diff = 0;
@@ -70,13 +69,15 @@
 			<div class="row game-container align-items-center">
 				<div class="col-12 col-md-4">
 					<!-- <img class="game-image mr-3" src="/images/{{ $game->img_path }}"> -->
-					<h4 class="game-name">{{ $game->name }}</h4>
+					<h3 class="game-name">{{ $game->name }}</h3>
 				</div>
 				<div class="col-md-2 d-none d-md-block">
 					@foreach($game->tags->sortBy('display_name') as $tag)
-					<div class="game-tag" style="background-color:#{{ $franchise->secondary_theme_color_hex }}">
-						{{ $tag->display_name }}
-					</div>
+						@if($tag->is_active)
+						<div class="game-tag" style="background-color:#{{ $franchise->secondary_theme_color_hex }}">
+							{{ $tag->display_name }}
+						</div>
+						@endif
 					@endforeach
 				</div>
 				<div class="col-md-2 d-none d-md-block">

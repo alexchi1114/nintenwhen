@@ -58,7 +58,7 @@ class FranchiseController extends Controller
                 ->where('is_upcoming', '=', '1')
                 ->orderByRaw('release_date DESC')->get();
 
-        $tags = Tag::all()->sortBy('display_order');
+        $tags = Tag::all()->where('is_active')->sortBy('display_order');
 
         return view('franchise.franchise', [
             'franchise' => $franchise, 
@@ -87,9 +87,9 @@ class FranchiseController extends Controller
 
         if(sizeof($tags) > 0)
         {
-            $q = $q->whereHas('tags', function (Builder $query) use($tags) {
+            $q = $q->whereDoesntHave('tags', function (Builder $query) use($tags) {
                 $query->whereIn('tag_id', $tags);
-            }, '>=', count($tags));
+            });
         }
 
         if($request->input('child_franchise_id') !== null) {

@@ -10,7 +10,7 @@
 
   <body>
 
-    @include('includes.header')
+    @include('includes.Header')
 
     <main class="container-lg" id="main">
       @yield('content')
