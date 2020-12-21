@@ -108,9 +108,8 @@
 				let center_width = ($center.data("width") * $(this).width()) - end_width;
 				let left_translation = Math.floor(center_width) - 1
 
-				$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
 				$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
-
+				$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
 			});
 		});
 
@@ -142,9 +141,8 @@
 						let end_width = $(this).find(".left").first().width();
 						let center_width = ($center.data("width") * $(this).width()) - end_width;
 						let left_translation = Math.floor(center_width) - 1
-
+						$(this).find(".right").first().css("margin-right", "-3px").css("transform", "translateX("+ left_translation+"px)")
 						$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
-						$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)")
 					});
 				})
 				.catch(function (error) {
