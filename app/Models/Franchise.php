@@ -47,7 +47,7 @@ class Franchise extends Model
                   ->orWhere('parent_franchise_id', $franchise->id);
             })
             ->where('is_upcoming', '=', '1')
-            ->orderByRaw('release_date DESC')->get();
+            ->orderByRaw('release_date ASC')->get();
     }
 
     public function getDaysSinceLastRelease() {

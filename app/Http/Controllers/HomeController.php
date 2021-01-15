@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Franchise;
 use App\Models\Game;
@@ -10,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $upcoming_games = Game::Where('is_upcoming', 1)->orderBy('release_date', 'DESC')->get();
+        $upcoming_games = Game::Where('is_upcoming', 1)->orderBy(DB::raw('ISNULL(release_date), release_date'), 'ASC')->get();
         $franchises_to_watch = Franchise::getFranchisesToWatch()->take(5);
 
         return view('home.index', [
