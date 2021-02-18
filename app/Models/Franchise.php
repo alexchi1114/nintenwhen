@@ -106,7 +106,7 @@ class Franchise extends Model
                 $is_port = $game->tags->filter(function($tag){
                     return $tag->code == 'port';
                 })->count() > 0;
-                return $game->is_upcoming && $game->release_date !== null && !$is_port;
+                return $game->is_upcoming && !$is_port;
             });
     		if($upcoming_games_without_release_date->count() > 0){
 				return false;
