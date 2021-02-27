@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define("Countdown", [], factory);
-	else if(typeof exports === 'object')
-		exports["Countdown"] = factory();
-	else
-		root["Countdown"] = factory();
-})(this, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -58972,4 +58962,3 @@ module.exports = __webpack_require__(/*! /Applications/MAMP/htdocs/nintenwhen/re
 /***/ })
 
 /******/ });
-});

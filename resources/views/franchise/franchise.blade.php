@@ -29,6 +29,8 @@
 									<div class="digit">--<span class="letter">s</span></div>
 								</div>
 							</div>
+						@elseif($game->release_date_tentative !== null)
+							<div class="tbd">{{ $game->release_date_tentative }}</div>
 						@else
 							<div class="tbd">TBA</div>
 						@endif
