@@ -11,7 +11,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $upcoming_games = Game::Where('is_upcoming', 1)->orderBy(DB::raw('ISNULL(release_date), release_date'), 'ASC')->get();
+        $upcoming_games = Game::Where('is_upcoming', 1)->orderBy(DB::raw('ISNULL(release_date), release_date, ISNULL(release_date_tentative), display_order'), 'ASC')->get();
         $franchises_to_watch = Franchise::getFranchisesToWatch()->take(5);
 
         return view('home.index', [
