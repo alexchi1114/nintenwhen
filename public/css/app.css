@@ -11104,14 +11104,16 @@ h6 {
   padding: 0 0.25rem;
 }
 
-.game-container.upcoming-game .countdown .digit {
+.game-container.upcoming-game .countdown .digit,
+.game-container.upcoming-game .countdown .released {
   display: inline-block;
   font-size: 2rem;
   font-weight: bold;
   padding: 0 0.5rem;
 }
 
-.game-container.upcoming-game .countdown .digit .letter {
+.game-container.upcoming-game .countdown .digit .letter,
+.game-container.upcoming-game .countdown .released .letter {
   font-size: 0.5em;
 }
 
