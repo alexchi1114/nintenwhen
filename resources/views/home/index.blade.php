@@ -12,6 +12,19 @@
 	</div>
 </div>
 
+<div class="card">
+    <div class="card-body">
+        <h2><i class="fas fa-brain"></i> Nintenwhen Analysis</h2>
+        <p id="ai-analysis-container"></p>
+        <div class="d-flex justify-content-center">
+            <div id="ai-analysis-loader" class='loader'>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
 	<div class="col-12 col-md-5">
 		<div class="jumbotron small-padding">
@@ -21,7 +34,7 @@
 				<h3 class="game-name">{{ $game->name }}</h3>
 				@if($game->release_date !== null)
 					<div class="countdown-container" style="background-color:#{{ $game->franchise->primary_theme_color_hex }}">
-						<div class="countdown text-center" data-date="{{ $game->release_date }}" translate="no">	
+						<div class="countdown text-center" data-date="{{ $game->release_date }}" translate="no">
 							<div class="digit">--<span class="letter">d</span></div>
 							<div class="digit">--<span class="letter">h</span></div>
 							<div class="digit">--<span class="letter">m</span></div>
@@ -37,7 +50,7 @@
 			</div>
 			@endforeach
 		</div>
-		
+
 	</div>
 	<div class="col-12 col-md-7">
 		<div class="jumbotron small-padding">
@@ -119,6 +132,53 @@
 			$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
 
 		});
+        // First, try cached version
+        $("#ai-analysis-loader").show();
+
+        axios.get('{{ route("franchise.analysis") }}')
+            .then(response => {
+                $("#ai-analysis-loader").hide();
+                $("#ai-analysis-container")[0].innerHTML = markdownLinksToHtml(response.data);
+            })
+            .catch(err => {
+                $("#ai-analysis-loader").hide();
+                $("#ai-analysis-container")[0].textContent = "There was an error loading AI analysis";
+            });
+
+        {{--axios.get('{{ route("franchise.analysis.cached") }}')--}}
+        {{--    .then(response => {--}}
+        {{--        if (response.data.ai_analysis) {--}}
+        {{--            $("#ai-analysis-loader").hide();--}}
+        {{--            $("#ai-analysis-container").html(response.data.ai_analysis);--}}
+        {{--        } else {--}}
+        {{--            // If no cache, stream live--}}
+        {{--            const source = new EventSource('{{ route("franchise.analysis.streamed") }}');--}}
+
+        {{--            let buffer = "";--}}
+        {{--            source.addEventListener("update", function (event) {--}}
+        {{--                buffer += event.data;--}}
+        {{--                $("#ai-analysis-loader").hide();--}}
+        {{--                if (event.data === "<END_STREAMING_SSE>") {--}}
+        {{--                    source.close();--}}
+        {{--                    $("#ai-analysis-container")[0].innerHTML = buffer;--}}
+        {{--                    return;--}}
+        {{--                }--}}
+        {{--                $("#ai-analysis-container")[0].textContent = buffer;--}}
+        {{--            });--}}
+
+        {{--            source.onerror = function(err) {--}}
+        {{--                $("#ai-analysis-loader").hide();--}}
+        {{--                $("#ai-analysis-container")[0].textContent = "There was an error loading AI analysis";--}}
+        {{--                source.close();--}}
+        {{--            };--}}
+        {{--        }--}}
+        {{--    })--}}
+        {{--    .catch(err => console.error(err));--}}
 	});
+
+    function markdownLinksToHtml(input) {
+        // Replace [text](url) with <a href="url">text</a>
+        return input.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+    }
 </script>
 @stop

@@ -13,6 +13,20 @@
 		<h1 class="page-title franchise-title" id="page-title" style="border-bottom-color:#{{ $franchise->primary_theme_color_hex }}">{{ $franchise->name }}</h1>
 	</div>
 
+    <div class="card">
+        <div class="card-body">
+            <h2><i class="fas fa-brain"></i> Nintenwhen Analysis</h2>
+            <p id="ai-analysis-container"></p>
+            <div class="d-flex justify-content-center">
+                <div id="ai-analysis-loader" class='loader'>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 	@if($upcoming_games !== null && $upcoming_games->count() > 0)
 		<div class="card w-100 mb-4">
 			<div class="card-body">
@@ -22,7 +36,7 @@
 						<h3 class="game-name">{{ $game->name }}</h3>
 						@if($game->release_date !== null)
 							<div class="countdown-container" style="background-color:#{{ $game->franchise->primary_theme_color_hex }}">
-								<div class="countdown text-center" data-date="{{ $game->release_date }}">	
+								<div class="countdown text-center" data-date="{{ $game->release_date }}">
 									<div class="digit">--<span class="letter">d</span></div>
 									<div class="digit">--<span class="letter">h</span></div>
 									<div class="digit">--<span class="letter">m</span></div>
@@ -37,9 +51,9 @@
 
 					</div>
 				@endforeach
-			</div>	
+			</div>
 		</div>
-	@endif	
+	@endif
 
 	<div class="card w-100 mb-4">
 		<div class="card-body">
@@ -54,7 +68,7 @@
 									<label for="seriesSelect" class="filter-label">Subseries</label>
 									<select name="series" id="seriesSelect" class="form-control" data-search-field>
 										<option>Select One</option>
-										@foreach($children as $child) 
+										@foreach($children as $child)
 											@if($child->id == $selected_franchise)
 												<option value="{{ $child->id }}" selected>{{ $child->name }}</option>
 											@else
@@ -84,14 +98,14 @@
 						</fieldset>
 					</form>
 				</div>
-			</div>	
+			</div>
 
 			<div id="games-container" class="w-100">
-				@include('franchise.games')	
+				@include('franchise.games')
 			</div>
 		</div>
 	</div>
-@stop   
+@stop
 
 @section('scripts')
 	<script type="text/javascript">
@@ -113,6 +127,17 @@
 				$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
 				$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
 			});
+
+            $("#ai-analysis-loader").show();
+            axios.get('{{ route("franchise.analysis.byid", ["id" => $franchise->id]) }}')
+                .then(response => {
+                    $("#ai-analysis-loader").hide();
+                    $("#ai-analysis-container")[0].innerHTML = markdownLinksToHtml(response.data);
+                })
+                .catch(err => {
+                    $("#ai-analysis-loader").hide();
+                    $("#ai-analysis-container")[0].textContent = "There was an error loading AI analysis";
+                });
 		});
 
 		$("[data-search-field]").on("change", search);
@@ -151,6 +176,11 @@
 					console.log(error);
 			});
 		}
+
+        function markdownLinksToHtml(input) {
+            // Replace [text](url) with <a href="url">text</a>
+            return input.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+        }
 
 	</script>
 @stop

@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use App\Models\Franchise;
 use App\Models\Game;
 use Carbon\Carbon;
-
 class HomeController extends Controller
 {
     public function index()
@@ -19,12 +17,14 @@ class HomeController extends Controller
                 $game->save();
             }
         }
-        
+
         $franchises_to_watch = Franchise::getFranchisesToWatch()->take(5);
 
         return view('home.index', [
         	'upcoming_games' => $upcoming_games,
-        	'franchises_to_watch' => $franchises_to_watch
+        	'franchises_to_watch' => $franchises_to_watch,
         ]);
     }
+
+
 }

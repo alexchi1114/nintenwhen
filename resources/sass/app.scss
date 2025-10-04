@@ -72,6 +72,11 @@ h6 {
 	font-size:0.6rem;
 }
 
+a {
+    color: darkblue;
+    text-decoration: underline;
+}
+
 #site-logo-container {
 	font-family: 'Archivo Black', sans-serif;
 	color:$off-white;
@@ -126,7 +131,7 @@ h6 {
     &:not(:last-child) {
     	border-bottom: 1px solid lighten($gray, 56%);
     }
-	
+
 
 	&.upcoming-game {
 
@@ -191,7 +196,7 @@ h6 {
 
 .card.filters {
 	.card-header {
-		border:none;		
+		border:none;
 		font-size:1.3rem;
 	}
 
@@ -236,7 +241,7 @@ h6 {
 }
 
 .face-status {
-	
+
 	font-size:1.2rem;
 
 	&.good {
@@ -261,7 +266,7 @@ h6 {
 }
 
 .franchise-container {
-	
+
 	&:not(:last-child) {
     	border-bottom: 1px solid lighten($gray, 56%);
     }

@@ -16,10 +16,17 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', [HomeController::class, 'index']);
+
 Route::get('/franchise', [FranchiseController::class, 'index']);
 Route::get('/franchise/{id}', [FranchiseController::class, 'show']);
 Route::post('/franchise/search', [FranchiseController::class, 'search']);
+Route::get('/franchise-analysis-cached', [FranchiseController::class, 'getCachedFranchiseAnalysis'])->name('franchise.analysis.cached');
+Route::get('/franchise-analysis-streamed', [FranchiseController::class, 'streamFranchiseAnalysis'])->name('franchise.analysis.streamed');
+Route::get('/franchise-analysis', [FranchiseController::class, 'getFranchiseAnalysis'])->name('franchise.analysis');
+Route::get('/franchise-analysis-byid/{id}', [FranchiseController::class, 'getFranchiseAnalysisById'])->name('franchise.analysis.byid');
+
 
 Route::get('/games', function(){
 	return view('game.games');
 });
+
