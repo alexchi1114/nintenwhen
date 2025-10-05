@@ -152,7 +152,7 @@ class FranchiseController extends Controller
         $client = \OpenAI::client(getenv('OPENAI_API_KEY'));
         $response = $client->responses()->create([
             'model' => 'gpt-4.1',
-            'instructions' => 'Return the output as a valid HTML snippet. Do not surround with an html tag. It is a snippet of html. Do not provide anything else other than the HTML.',
+            'instructions' => 'Return the output as a valid HTML snippet. Do not surround with an html tag. It is a snippet of html. Do not provide anything else other than the HTML. Do not refer to me or the prompt. This is to be used as a blurb on a website.',
             'input' => 'Here are games in the ' .$franchise->name . ' Nintendo series. Give a few sentences of analysis for the possibility of a new game coming soon. No markdown or anything like that. Here are the games: ' . $games->toJson(),
             'tool_choice' => 'required',
             'tools' => [
@@ -210,7 +210,7 @@ class FranchiseController extends Controller
         $client = \OpenAI::client(getenv('OPENAI_API_KEY'));
         $response = $client->responses()->create([
             'model' => 'gpt-4.1',
-            'instructions' => 'Return the output as a valid HTML snippet. Do not surround with an html tag. It is a snippet of html. Do not provide anything else other than the HTML.',
+            'instructions' => 'Return the output as a valid HTML snippet. Do not surround with an html tag. It is a snippet of html. Do not provide anything else other than the HTML. Do not refer to me or the prompt. This is to be used as a blurb on a website.',
             'input' => 'Here are games in 5 franchises likely to have new announcements soon. Give a couple sentences of analysis for each franchise, explaining why a game announcement in the franchise might be coming soon. No markdown or anything like that. Put a line break between the analysis for each franchise to separate them out for readability. You can return the text as HTML snippet with a li for each franchise analysis, with strong tags every time the game franchise is mentioned. Here are the games: ' . $games->toJson(),
             'tool_choice' => 'required',
             'tools' => [
