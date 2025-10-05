@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Franchise;
 use App\Models\Game;
 use App\Models\Tag;
+use DateInterval;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Builder;
@@ -164,7 +165,7 @@ class FranchiseController extends Controller
                 $text .= $item->content[0]->text;
             }
         }
-        Cache::put($cacheKey, $text, 1440);
+        Cache::put($cacheKey, $text, new DateInterval('P1D'));
         return $text;
     }
 
@@ -222,7 +223,7 @@ class FranchiseController extends Controller
                 $text .= $item->content[0]->text;
             }
         }
-        Cache::put($cacheKey, $text, 1440);
+        Cache::put($cacheKey, $text, new DateInterval('P1D'));
         return $text;
     }
 
