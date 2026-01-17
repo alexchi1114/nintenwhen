@@ -110,78 +110,97 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		$("#searchFormContainer").on('show.bs.collapse', function (e) {
-			$("#filtersToggle").find(".expand").first().html("<i class='fas fa-caret-up'></i>");
+		const searchFormContainer = document.getElementById("searchFormContainer");
+		const filtersToggle = document.getElementById("filtersToggle");
+
+		searchFormContainer.addEventListener('show.bs.collapse', function (e) {
+			filtersToggle.querySelector(".expand").innerHTML = "<i class='fas fa-caret-up'></i>";
 		});
 
-		$("#searchFormContainer").on('hide.bs.collapse', function (e) {
-			$("#filtersToggle").find(".expand").first().html("<i class='fas fa-caret-down'></i>");
+		searchFormContainer.addEventListener('hide.bs.collapse', function (e) {
+			filtersToggle.querySelector(".expand").innerHTML = "<i class='fas fa-caret-down'></i>";
 		});
 
-		$(document).ready(function(){
-			$(".days-bar").each(function(){
-				let $center = $(this).find(".center").first();
-				let end_width = $(this).find(".left").first().width();
-				let center_width = ($center.data("width") * $(this).width()) - end_width;
-				let left_translation = Math.floor(center_width) - 1
+		function initDaysBars() {
+			document.querySelectorAll(".days-bar").forEach(function(bar){
+				const center = bar.querySelector(".center");
+				const left = bar.querySelector(".left");
+				const right = bar.querySelector(".right");
+				const endWidth = left.offsetWidth;
+				const centerWidth = (parseFloat(center.dataset.width) * bar.offsetWidth) - endWidth;
+				const leftTranslation = Math.floor(centerWidth) - 1;
 
-				$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
-				$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
-			});
-
-            $("#ai-analysis-loader").show();
-            axios.get('{{ route("franchise.analysis.byid", ["id" => $franchise->id]) }}')
-                .then(response => {
-                    $("#ai-analysis-loader").hide();
-                    $("#ai-analysis-container")[0].innerHTML = markdownLinksToHtml(response.data);
-                })
-                .catch(err => {
-                    $("#ai-analysis-loader").hide();
-                    $("#ai-analysis-container")[0].textContent = "There was an error loading AI analysis";
-                });
-		});
-
-		$("[data-search-field]").on("change", search);
-
-		function search(){
-
-			var tagData = $("input[name='tag[]']:checked").map(function () {
-      			return this.value;
-		  	}).get();
-
-		  	let child_franchise_id = isNaN(parseInt($("#seriesSelect").val())) ? null : parseInt($("#seriesSelect").val());
-
-		  	$("#loader-container").show();
-
-			var searchData = {
-				tags: tagData,
-				franchise_id: {{ $franchise->id }},
-				child_franchise_id: child_franchise_id
-			}
-			axios.post('/franchise/search/', searchData, {
-				  headers: { 'Content-Type': 'application/json' }
-				})
-				.then(function (response) {
-					$("#games-container").html(response.data);
-					$("#loader-container").hide();
-					$(".days-bar").each(function(){
-						let $center = $(this).find(".center").first();
-						let end_width = $(this).find(".left").first().width();
-						let center_width = ($center.data("width") * $(this).width()) - end_width;
-						let left_translation = Math.floor(center_width) - 1
-						$(this).find(".right").first().css("margin-right", "-3px").css("transform", "translateX("+ left_translation+"px)")
-						$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
-					});
-				})
-				.catch(function (error) {
-					console.log(error);
+				right.style.transform = "translateX("+ leftTranslation +"px)";
+				center.style.transform = "scaleX("+ Math.floor(centerWidth) +")";
 			});
 		}
 
-        function markdownLinksToHtml(input) {
-            // Replace [text](url) with <a href="url">text</a>
-            return input.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
-        }
+		document.addEventListener('DOMContentLoaded', function(){
+			initDaysBars();
 
+			const loader = document.getElementById("ai-analysis-loader");
+			const container = document.getElementById("ai-analysis-container");
+
+			loader.style.display = "flex";
+			axios.get('{{ route("franchise.analysis.byid", ["id" => $franchise->id]) }}')
+				.then(response => {
+					loader.style.display = "none";
+					container.innerHTML = markdownLinksToHtml(response.data);
+				})
+				.catch(err => {
+					loader.style.display = "none";
+					container.textContent = "There was an error loading AI analysis";
+				});
+		});
+
+		document.querySelectorAll("[data-search-field]").forEach(function(el){
+			el.addEventListener("change", search);
+		});
+
+		function search(){
+			const tagInputs = document.querySelectorAll("input[name='tag[]']:checked");
+			const tagData = Array.from(tagInputs).map(function(input) {
+				return input.value;
+			});
+
+			const seriesSelect = document.getElementById("seriesSelect");
+			const childFranchiseId = isNaN(parseInt(seriesSelect.value)) ? null : parseInt(seriesSelect.value);
+
+			document.getElementById("loader-container").style.display = "block";
+
+			const searchData = {
+				tags: tagData,
+				franchise_id: {{ $franchise->id }},
+				child_franchise_id: childFranchiseId
+			};
+
+			axios.post('/franchise/search/', searchData, {
+				headers: { 'Content-Type': 'application/json' }
+			})
+			.then(function (response) {
+				document.getElementById("games-container").innerHTML = response.data;
+				document.getElementById("loader-container").style.display = "none";
+				document.querySelectorAll(".days-bar").forEach(function(bar){
+					const center = bar.querySelector(".center");
+					const left = bar.querySelector(".left");
+					const right = bar.querySelector(".right");
+					const endWidth = left.offsetWidth;
+					const centerWidth = (parseFloat(center.dataset.width) * bar.offsetWidth) - endWidth;
+					const leftTranslation = Math.floor(centerWidth) - 1;
+
+					right.style.marginRight = "-3px";
+					right.style.transform = "translateX("+ leftTranslation +"px)";
+					center.style.transform = "scaleX("+ Math.floor(centerWidth) +")";
+				});
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+		}
+
+		function markdownLinksToHtml(input) {
+			// Replace [text](url) with <a href="url">text</a>
+			return input.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+		}
 	</script>
 @stop

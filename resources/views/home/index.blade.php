@@ -129,64 +129,38 @@
 @stop
 @section('scripts')
 <script type="text/javascript">
-	$(document).ready(function(){
-		$(".days-bar").each(function(){
-			let $center = $(this).find(".center").first();
-			let end_width = $(this).find(".left").first().width();
-			let center_width = ($center.data("width") * $(this).width()) - end_width;
-			let left_translation = Math.floor(center_width) - 1
+	document.addEventListener('DOMContentLoaded', function(){
+		document.querySelectorAll(".days-bar").forEach(function(bar){
+			const center = bar.querySelector(".center");
+			const left = bar.querySelector(".left");
+			const right = bar.querySelector(".right");
+			const endWidth = left.offsetWidth;
+			const centerWidth = (parseFloat(center.dataset.width) * bar.offsetWidth) - endWidth;
+			const leftTranslation = Math.floor(centerWidth) - 1;
 
-			$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
-			$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
-
+			center.style.transform = "scaleX("+ Math.floor(centerWidth) +")";
+			right.style.transform = "translateX("+ leftTranslation +"px)";
 		});
-        // First, try cached version
-        $("#ai-analysis-loader").show();
 
-        axios.get('{{ route("franchise.analysis") }}')
-            .then(response => {
-                $("#ai-analysis-loader").hide();
-                $("#ai-analysis-container")[0].innerHTML = markdownLinksToHtml(response.data);
-            })
-            .catch(err => {
-                $("#ai-analysis-loader").hide();
-                $("#ai-analysis-container")[0].textContent = "There was an error loading AI analysis";
-            });
+		const loader = document.getElementById("ai-analysis-loader");
+		const container = document.getElementById("ai-analysis-container");
 
-        {{--axios.get('{{ route("franchise.analysis.cached") }}')--}}
-        {{--    .then(response => {--}}
-        {{--        if (response.data.ai_analysis) {--}}
-        {{--            $("#ai-analysis-loader").hide();--}}
-        {{--            $("#ai-analysis-container").html(response.data.ai_analysis);--}}
-        {{--        } else {--}}
-        {{--            // If no cache, stream live--}}
-        {{--            const source = new EventSource('{{ route("franchise.analysis.streamed") }}');--}}
+		loader.style.display = "flex";
 
-        {{--            let buffer = "";--}}
-        {{--            source.addEventListener("update", function (event) {--}}
-        {{--                buffer += event.data;--}}
-        {{--                $("#ai-analysis-loader").hide();--}}
-        {{--                if (event.data === "<END_STREAMING_SSE>") {--}}
-        {{--                    source.close();--}}
-        {{--                    $("#ai-analysis-container")[0].innerHTML = buffer;--}}
-        {{--                    return;--}}
-        {{--                }--}}
-        {{--                $("#ai-analysis-container")[0].textContent = buffer;--}}
-        {{--            });--}}
-
-        {{--            source.onerror = function(err) {--}}
-        {{--                $("#ai-analysis-loader").hide();--}}
-        {{--                $("#ai-analysis-container")[0].textContent = "There was an error loading AI analysis";--}}
-        {{--                source.close();--}}
-        {{--            };--}}
-        {{--        }--}}
-        {{--    })--}}
-        {{--    .catch(err => console.error(err));--}}
+		axios.get('{{ route("franchise.analysis") }}')
+			.then(response => {
+				loader.style.display = "none";
+				container.innerHTML = markdownLinksToHtml(response.data);
+			})
+			.catch(err => {
+				loader.style.display = "none";
+				container.textContent = "There was an error loading AI analysis";
+			});
 	});
 
-    function markdownLinksToHtml(input) {
-        // Replace [text](url) with <a href="url">text</a>
-        return input.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
-    }
+	function markdownLinksToHtml(input) {
+		// Replace [text](url) with <a href="url">text</a>
+		return input.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, '<a href="$2">$1</a>');
+	}
 </script>
 @stop

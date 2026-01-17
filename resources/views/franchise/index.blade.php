@@ -101,28 +101,39 @@
 
 @section('scripts')
 	<script type="text/javascript">
-		$(document).ready(function(){
-			$(".days-bar").each(function(){
-				let $center = $(this).find(".center").first();
-				let end_width = $(this).find(".left").first().width();
-				let center_width = ($center.data("width") * $(this).width()) - end_width;
-				let left_translation = Math.floor(center_width) - 3
+		document.addEventListener('DOMContentLoaded', function(){
+			document.querySelectorAll(".days-bar").forEach(function(bar){
+				const center = bar.querySelector(".center");
+				const left = bar.querySelector(".left");
+				const right = bar.querySelector(".right");
+				const endWidth = left.offsetWidth;
+				const centerWidth = (parseFloat(center.dataset.width) * bar.offsetWidth) - endWidth;
+				const leftTranslation = Math.floor(centerWidth) - 3;
 
-				$center.css("transform", "scaleX("+ Math.floor(center_width) +")");
-				$(this).find(".right").first().css("transform", "translateX("+ left_translation+"px)");
-
+				center.style.transform = "scaleX("+ Math.floor(centerWidth) +")";
+				right.style.transform = "translateX("+ leftTranslation +"px)";
 			});
 
-			$("#franchise-name").on("input", function(){
-				let $this  = $(this);
-	            let search = $this.val().toLowerCase();
+			document.getElementById("franchise-name").addEventListener("input", function(){
+				const search = this.value.toLowerCase();
+				const cards = document.querySelectorAll('.franchise-overview-card-column');
 
-	            if(search.length > 0){
-	                $('.franchise-overview-card-column').removeClass("d-flex").hide();
-	                $(".franchise-overview-card-column[data-name*=" + search + "]").addClass("d-flex").show();
-	            } else {
-	            	$('.franchise-overview-card-column').addClass("d-flex").show();
-	            }
+				if(search.length > 0){
+					cards.forEach(function(card){
+						if(card.dataset.name.includes(search)){
+							card.classList.add("d-flex");
+							card.style.display = "";
+						} else {
+							card.classList.remove("d-flex");
+							card.style.display = "none";
+						}
+					});
+				} else {
+					cards.forEach(function(card){
+						card.classList.add("d-flex");
+						card.style.display = "";
+					});
+				}
 			});
 		});
 	</script>
