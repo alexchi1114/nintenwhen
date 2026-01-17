@@ -108,6 +108,7 @@ a {
     height: 0.8rem;
     display:flex;
     overflow:hidden;
+    border-radius: 0.4rem;
 
     .center {
     	width:1px;
@@ -140,9 +141,10 @@ a {
 		}
 
 		.countdown-container {
-			background-color:$joycon-blue-dark;
+			background-color:$white;
+			border: 2px solid;
 			color:#fff;
-			border-radius:1rem;
+			border-radius:5px;
 			padding:0 0.25rem;
 		}
 
@@ -192,6 +194,7 @@ a {
 	color:white;
 	padding:0.2rem 0.4rem;
 	font-size:0.7rem;
+	border-radius:5px;
 }
 
 .card.filters {

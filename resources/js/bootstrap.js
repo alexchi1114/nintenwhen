@@ -7,9 +7,9 @@ window._ = require('lodash');
  */
 
 try {
-    window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
 
+    // Bootstrap 5 - import as ES module
     require('bootstrap');
 } catch (e) {}
 

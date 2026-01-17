@@ -13,7 +13,7 @@
 		<h1 class="page-title franchise-title" id="page-title" style="border-bottom-color:#{{ $franchise->primary_theme_color_hex }}">{{ $franchise->name }}</h1>
 	</div>
 
-    <div class="card">
+    <div class="card mb-3">
         <div class="card-body">
             <h2><i class="fas fa-brain"></i> Nintenwhen Analysis</h2>
             <p id="ai-analysis-container"></p>
@@ -35,13 +35,14 @@
 					<div class="upcoming-game game-container">
 						<h3 class="game-name">{{ $game->name }}</h3>
 						@if($game->release_date !== null)
-							<div class="countdown-container" style="background-color:#{{ $game->franchise->primary_theme_color_hex }}">
+							<div class="countdown-container" style="color:#{{ $game->franchise->primary_theme_color_hex }}; border-color:#{{ $game->franchise->primary_theme_color_hex }};">
 								<div class="countdown text-center" data-date="{{ $game->release_date }}">
 									<div class="digit">--<span class="letter">d</span></div>
 									<div class="digit">--<span class="letter">h</span></div>
 									<div class="digit">--<span class="letter">m</span></div>
 									<div class="digit">--<span class="letter">s</span></div>
 								</div>
+                                <div class="text-center"><strong>{{ $game->release_date->format('m/d/Y') }}</strong></div>
 							</div>
 						@elseif($game->release_date_tentative !== null)
 							<div class="tbd">{{ $game->release_date_tentative }}</div>
@@ -62,7 +63,7 @@
 				<div class="card-body" id="searchFormContainer">
 					<form name="searchForm" id="search-form">
 						@if($children !== null && $children->count() > 0)
-						<div class="row">
+						<div class="row mb-3">
 							<div class="col-12 col-md-6">
 								<div class="form-group">
 									<label for="seriesSelect" class="filter-label">Subseries</label>

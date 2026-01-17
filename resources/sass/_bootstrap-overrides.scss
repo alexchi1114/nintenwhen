@@ -1,29 +1,13 @@
-/* Jumbotron */
-$jumbotron-bg: #fff;
-.jumbotron {
-	border-radius:0 !important;
-	margin:1rem 0 !important;
-
-	&.small-padding {
-		padding:2rem 2rem;
-	}
-}
-
 /* Cards */
 $card-border-width: 0;
-$card-border-radius:0;
+$card-border-radius:15px;
 $card-border-color:rgba($dark-red, 0.175);
 $card-cap-bg:$joycon-blue-dark;
 $card-cap-color:$off-white;
 
-
-
 /* Forms */
 $input-color: $dark-red;
 $input-border-color: rgba($red, 0.3);
-.form-control {
-	border-radius:0 !important;
-}
 
 
 /* Breadcrumbs */
@@ -32,10 +16,11 @@ $breadcrumb-border-radius:2rem;
 $breadcrumb-divider-color:$off-white;
 $breadcrumb-active-color:$off-white;
 $breadcrumb-padding-y:0.5rem;
+$breadcrumb-padding-x:0.5rem;
 
 .breadcrumb {
-	display:inline-flex !important;	
-	position:relative;	
+	display:inline-flex !important;
+	position:relative;
 	text-transform:uppercase;
 	font-family: 'Archivo Black', sans-serif;
 
@@ -62,8 +47,8 @@ $breadcrumb-padding-y:0.5rem;
 }
 
 /* Buttons */
-$btn-border-radius: 0;
-$btn-border-radius-lg: 0;
+$btn-border-radius: 10px;
+$btn-border-radius-lg: 15px;
 
 /* Theme Colors */
 $theme-colors: (

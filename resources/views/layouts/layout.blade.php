@@ -12,7 +12,7 @@
 
     @include('includes.Header')
 
-    <main class="container-lg" id="main">
+    <main class="container-lg pb-5" id="main">
       @yield('content')
     </main>
 

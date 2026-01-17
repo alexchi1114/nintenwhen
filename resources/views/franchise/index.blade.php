@@ -17,7 +17,7 @@
 	</div>
 
 	<div class="container">
-		<div class="row d-flex">		
+		<div class="row d-flex">
 			@foreach($franchises as $franchise)
 				@php
 				 $since_width = $franchise->getMaxDaysBetweenReleases() > 0 ? $franchise->getDaysSinceLastRelease() / $franchise->getMaxDaysBetweenReleases() : 0;
@@ -25,7 +25,7 @@
 				 $avg_width = $franchise->getMaxDaysBetweenReleases() > 0 ? $franchise->getAvgDaysBetweenReleases() / $franchise->getMaxDaysBetweenReleases() : 0;
 				@endphp
 			<div class="col col-6 col-sm-4 col-md-3 col-lg-2 d-flex p-3 franchise-overview-card-column" data-name="{{ strtolower($franchise->name) }}">
-				<a class="card w-100 franchise-overview-card" href="/franchise/{{ $franchise->id }}">
+				<a class="card w-100 franchise-overview-card text-decoration-none" href="/franchise/{{ $franchise->id }}">
 					<h2 class="card-header">{{ $franchise->name }}</h2>
 					<div class="card-body">
 						<div class="face-status {{ $franchise->getStatus() }}">
@@ -97,7 +97,7 @@
 		    @endforeach
 		</div>
 	</div>
-@stop   
+@stop
 
 @section('scripts')
 	<script type="text/javascript">
