@@ -7,9 +7,9 @@ use Carbon\Carbon;
 
 class Game extends Model
 {
-    protected $dates = [
-        'reveal_date',
-        'release_date'
+    protected $casts = [
+        'reveal_date' => 'datetime',
+        'release_date' => 'datetime',
     ];
 
     public function tags() 
@@ -42,7 +42,7 @@ class Game extends Model
 			return $a->release_date > $b->release_date;
 		});
 		if(sizeof($games) > 0) {
-			return $games[0]->release_date === null ? null : $games[0]->release_date->diffInDays(Carbon::now());
+			return $games[0]->release_date === null ? null : $games[0]->release_date->diffInDays(Carbon::now(), absolute: true);
 		} else {
 			return null;
 		}
@@ -54,7 +54,7 @@ class Game extends Model
 
         foreach($games as $i => $game) {
             if($game->release_date !== null && isset($games[$i + 1])) {
-                $days_between_releases = $game->release_date->diffInDays($games[$i + 1]->release_date);
+                $days_between_releases = $game->release_date->diffInDays($games[$i + 1]->release_date, absolute: true);
                 $total_days_between_releases += $days_between_releases;
             }
         }
@@ -75,7 +75,7 @@ class Game extends Model
 		$max_days_between_releases = self::getDaysSinceLastRelease($games);
         foreach($games as $i => $game) {
             if($game->release_date !== null && isset($games[$i + 1])) {
-                $days_between_releases = $game->release_date->diffInDays($games[$i + 1]->release_date);
+                $days_between_releases = $game->release_date->diffInDays($games[$i + 1]->release_date, absolute: true);
                 if($days_between_releases > $max_days_between_releases) {
                     $max_days_between_releases = $days_between_releases;
                 }

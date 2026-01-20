@@ -92,7 +92,6 @@
                             <div class="game-diff-num-container"><span class="game-diff-num"> {{ $last_release_days }} </span>d</div>
                         @endif
                     </div>
-
                     <div class="days-bar mb-2">
                         <div class="left" style="background-color:#{{$franchise->primary_theme_color_hex}};"></div>
                         <div class="center" data-width="{{ $since_width }}" style="background-color:#{{$franchise->primary_theme_color_hex}};"></div>

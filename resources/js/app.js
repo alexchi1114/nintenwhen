@@ -1,3 +1,2 @@
-require('./bootstrap');
-require('./countdown');
-
+import './bootstrap';
+import './countdown';
