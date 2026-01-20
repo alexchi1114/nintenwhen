@@ -12,12 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('game_system', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('game_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('system_id')->constrained()->cascadeOnDelete();
+            $table->increments('id');
+            $table->smallInteger('game_id');
+            $table->smallInteger('system_id');
             $table->timestamps();
 
             $table->unique(['game_id', 'system_id']);
+
+            $table->foreign('game_id')
+                ->references('id')
+                ->on('games')
+                ->cascadeOnDelete();
+
+            $table->foreign('system_id')
+                ->references('id')
+                ->on('systems');
         });
     }
 

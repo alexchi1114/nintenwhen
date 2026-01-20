@@ -4,15 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Nintenwhen is a Nintendo game release tracking and prediction platform built with Laravel 8 and Vue.js. It tracks franchise "health" based on release patterns and uses OpenAI GPT-4.1 to predict upcoming game announcements.
+Nintenwhen is a Nintendo game release tracking and prediction platform built with Laravel 12 and Bootstrap 5. It tracks franchise "health" based on release patterns and uses OpenAI GPT-4.1 to predict upcoming game announcements.
 
 ## Common Commands
 
 ```bash
-# Development
-npm run dev          # Build assets for development
-npm run watch        # Watch and rebuild on changes
-npm run prod         # Production build
+# Development (Vite)
+npm run dev          # Start Vite dev server with HMR
+npm run build        # Production build
 
 # Laravel
 php artisan migrate  # Run database migrations
@@ -20,7 +19,9 @@ php artisan tinker   # Interactive PHP shell
 php artisan cache:clear  # Clear application cache
 
 # Testing
-./vendor/bin/phpunit  # Run PHPUnit tests
+./vendor/bin/phpunit              # Run all tests
+./vendor/bin/phpunit tests/Unit   # Run unit tests only
+./vendor/bin/phpunit --filter=TestName  # Run single test
 ```
 
 ## Architecture
@@ -44,19 +45,18 @@ Game (M) → (M) System (pivot: game_system)
 
 ### Controllers
 
-- **FranchiseController** (`app/Http/Controllers/FranchiseController.php`) - Main controller handling franchise listing, search, and AI analysis endpoints
+- **FranchiseController** - Franchise listing, search, and AI analysis endpoints (`/franchise-analysis`, `/franchise-analysis/stream`)
 - **HomeController** - Homepage with countdown timers; auto-removes games released >14 days ago
 - **GameController** - Game management
 
 ### AI Integration
 
-- Uses OpenAI GPT-4.1 with web_search tool enabled
-- Endpoints: `/franchise-analysis` (cached JSON) and `/franchise-analysis/stream` (SSE)
+- Uses OpenAI GPT-4.1 via `openai-php/client` with web_search tool
+- Endpoints: `/franchise-analysis` (cached JSON) and `/franchise-analysis/stream` (SSE streaming)
 - Results cached for 1 day using Laravel's file cache
 
 ### Frontend
 
-- jQuery for DOM manipulation, Axios for API calls
-- Bootstrap 4 responsive layout
+- Axios for API calls, Bootstrap 5 for layout
 - `resources/js/countdown.js` handles release countdown timers
-- SASS stylesheets compiled via Laravel Mix
+- SASS stylesheets compiled via Vite (`resources/sass/app.scss`)

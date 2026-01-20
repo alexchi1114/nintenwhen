@@ -33,7 +33,7 @@
 				<h2>Upcoming Games</h2>
 				@foreach($upcoming_games as $game)
 					<div class="upcoming-game game-container">
-						<h3 class="game-name">{{ $game->name }}</h3>
+						<h3 class="game-name">@if($game->external_link)<a href="{{ $game->external_link }}" target="_blank" rel="noopener noreferrer">{{ $game->name }} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>@else{{ $game->name }}@endif</h3>
 						@if($game->release_date !== null)
 							<div class="countdown-container" style="color:#{{ $game->franchise->primary_theme_color_hex }}; border-color:#{{ $game->franchise->primary_theme_color_hex }};">
 								<div class="countdown text-center" data-date="{{ $game->release_date }}">

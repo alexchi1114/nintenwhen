@@ -16,7 +16,5 @@
 
 	  gtag('config', 'G-MQ4GED86D1');
 	</script>
-
-	<script data-ad-client="ca-pub-3720073513516790" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 @endif
 <title>@yield('pageTitle') - Nintenwhen</title>

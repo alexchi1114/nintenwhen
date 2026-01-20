@@ -12,6 +12,6 @@
 	  </div>
 	</div>
 	@foreach($games as $game)
-		{{ $game->name }}
+		@if($game->external_link)<a href="{{ $game->external_link }}" target="_blank" rel="noopener noreferrer">{{ $game->name }} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>@else{{ $game->name }}@endif
 	@endforeach
 @stop

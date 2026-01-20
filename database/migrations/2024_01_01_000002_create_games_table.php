@@ -12,13 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
-            $table->string('name');
-            $table->date('reveal_date')->nullable();
+            $table->smallIncrements('id');
+            $table->string('name', 1000);
             $table->date('release_date')->nullable();
-            $table->boolean('is_upcoming')->default(true);
+            $table->smallInteger('franchise_id')->nullable();
+            $table->string('img_path', 1000)->default('');
+            $table->boolean('is_upcoming')->default(false);
+            $table->string('preorder_link', 1000)->nullable();
+            $table->string('release_date_tentative', 255)->nullable();
+            $table->integer('display_order')->default(0);
+            $table->boolean('show')->default(true);
             $table->timestamps();
+
+            $table->foreign('franchise_id')
+                ->references('id')
+                ->on('franchises');
         });
     }
 

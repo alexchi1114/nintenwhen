@@ -12,9 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('code')->unique();
+            $table->smallIncrements('id');
+            $table->string('code', 50)->unique();
+            $table->string('display_name', 1000);
+            $table->string('color_hex', 6);
+            $table->smallInteger('display_order')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }

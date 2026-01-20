@@ -12,13 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('franchises', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('parent_franchise_id')->nullable()->constrained('franchises')->nullOnDelete();
+            $table->smallIncrements('id');
             $table->string('name');
-            $table->string('slug')->nullable();
-            $table->string('primary_theme_color_hex')->nullable();
-            $table->decimal('predict_multiplier', 5, 2)->default(1.00);
+            $table->string('primary_theme_color_hex', 6);
+            $table->string('secondary_theme_color_hex', 6);
+            $table->smallInteger('parent_franchise_id')->nullable();
+            $table->decimal('predict_multiplier', 4, 2)->default(1.00);
+            $table->boolean('show')->default(true);
             $table->timestamps();
+
+            $table->foreign('parent_franchise_id')
+                ->references('id')
+                ->on('franchises')
+                ->nullOnDelete();
         });
     }
 

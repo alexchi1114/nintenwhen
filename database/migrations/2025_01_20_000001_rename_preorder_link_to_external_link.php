@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('systems', function (Blueprint $table) {
-            $table->smallIncrements('id');
-            $table->string('name', 1000);
-            $table->smallInteger('display_order')->nullable();
-            $table->timestamps();
+        Schema::table('games', function (Blueprint $table) {
+            $table->renameColumn('preorder_link', 'external_link');
         });
     }
 
@@ -24,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('systems');
+        Schema::table('games', function (Blueprint $table) {
+            $table->renameColumn('external_link', 'preorder_link');
+        });
     }
 };

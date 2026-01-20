@@ -76,7 +76,7 @@
 			<div class="row game-container align-items-center">
 				<div class="col-12 col-md-4">
 					<!-- <img class="game-image mr-3" src="/images/{{ $game->img_path }}"> -->
-					<h3 class="game-name">{{ $game->name }}</h3>
+					<h3 class="game-name">@if($game->external_link)<a href="{{ $game->external_link }}" target="_blank" rel="noopener noreferrer">{{ $game->name }} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>@else{{ $game->name }}@endif</h3>
 					<div class="game-tag-container d-none d-md-block">
 						@foreach($game->tags->sortBy('display_name') as $tag)
 							@if($tag->is_active)
