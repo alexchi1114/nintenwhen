@@ -57,6 +57,77 @@
             </div>
         </div>
     </div>
+    @if(count($direct_predictions) > 0)
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2>Direct Predictions</h2>
+                <p class="mb-3"><a class="btn btn-primary" href="/direct">View all directs</a></p>
+                @foreach($direct_predictions as $prediction)
+                <div class="franchise-container py-4">
+                    <h3 class="franchise-title">
+                        <span class="badge" style="background-color:#{{ $prediction['tag']->color_hex }}">{{ $prediction['tag']->display_name }}</span>
+                    </h3>
+                    <h4 class="mb-0">Since Last</h4>
+                    <div class="game-diff-container">
+                        @php
+                            $since_width = $prediction['max_days_between'] > 0 ? $prediction['days_since_last'] / $prediction['max_days_between'] : 0;
+                            $avg_width = $prediction['max_days_between'] > 0 ? $prediction['avg_days_between'] / $prediction['max_days_between'] : 0;
+
+                            $last_years = \Carbon\Carbon::now()->subDays($prediction['days_since_last'])->diff()->format('%y');
+                            $last_months = \Carbon\Carbon::now()->subDays($prediction['days_since_last'])->diff()->format('%m');
+                            $last_days = \Carbon\Carbon::now()->subDays($prediction['days_since_last'])->diff()->format('%d');
+
+                            $avg_years = \Carbon\Carbon::now()->subDays($prediction['avg_days_between'])->diff()->format('%y');
+                            $avg_months = \Carbon\Carbon::now()->subDays($prediction['avg_days_between'])->diff()->format('%m');
+                            $avg_days = \Carbon\Carbon::now()->subDays($prediction['avg_days_between'])->diff()->format('%d');
+                        @endphp
+
+                        @if($last_years != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num">{{ $last_years }} </span>y</div>
+                        @endif
+
+                        @if($last_months != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $last_months }} </span>m</div>
+                        @endif
+
+                        @if($last_days != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $last_days }} </span>d</div>
+                        @endif
+                    </div>
+                    <div class="days-bar mb-2">
+                        <div class="left" style="background-color:#{{ $prediction['tag']->color_hex }};"></div>
+                        <div class="center" data-width="{{ $since_width }}" style="background-color:#{{ $prediction['tag']->color_hex }};"></div>
+                        <div class="right" style="background-color:#{{ $prediction['tag']->color_hex }};"></div>
+                    </div>
+
+                    <h4 class="mb-0">Average</h4>
+                    <div class="game-diff-container">
+                        @if($avg_years != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num">{{ $avg_years }} </span>y</div>
+                        @endif
+
+                        @if($avg_months != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $avg_months }} </span>m</div>
+                        @endif
+
+                        @if($avg_days != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $avg_days }} </span>d</div>
+                        @endif
+                    </div>
+
+                    <div class="days-bar">
+                        <div class="left" style="background-color:#{{ $prediction['tag']->color_hex }};"></div>
+                        <div class="center" data-width="{{ $avg_width }}" style="background-color:#{{ $prediction['tag']->color_hex }};"></div>
+                        <div class="right" style="background-color:#{{ $prediction['tag']->color_hex }};"></div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="col">
         <div class="card">
             <div class="card-body">

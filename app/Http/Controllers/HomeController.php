@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Models\Franchise;
 use App\Models\Game;
+use App\Http\Controllers\DirectController;
 use Carbon\Carbon;
 class HomeController extends Controller
 {
@@ -19,10 +20,12 @@ class HomeController extends Controller
         }
 
         $franchises_to_watch = Franchise::getFranchisesToWatch()->take(5);
+        $direct_predictions = DirectController::getPredictions();
 
         return view('home.index', [
         	'upcoming_games' => $upcoming_games,
         	'franchises_to_watch' => $franchises_to_watch,
+        	'direct_predictions' => $direct_predictions,
         ]);
     }
 

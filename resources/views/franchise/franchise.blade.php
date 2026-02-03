@@ -83,12 +83,12 @@
 						@endif
 
 						<fieldset class="form-group">
-							<legend class="filter-label">Exclude</legend>
+							<legend class="filter-label">Filter by Type</legend>
 							<div class="row">
 								@foreach($tags as $tag)
 									<div class="col-6 col-sm-4 col-md-2">
 										<div class="form-check">
-											<input name="tag[]" value="{{ $tag->id }}" class="form-check-input" type="checkbox" id="{{ $tag->code }}" data-search-field>
+											<input name="tag[]" value="{{ $tag->id }}" class="form-check-input" type="checkbox" id="{{ $tag->code }}" data-search-field checked>
 											<label class="form-check-label" for="{{ $tag->code }}">
 												{{ $tag->display_name }}s
 											</label>
@@ -158,13 +158,13 @@
 		});
 
 		function search(){
-			const tagInputs = document.querySelectorAll("input[name='tag[]']:checked");
+			const tagInputs = document.querySelectorAll("input[name='tag[]']:not(:checked)");
 			const tagData = Array.from(tagInputs).map(function(input) {
 				return input.value;
 			});
 
 			const seriesSelect = document.getElementById("seriesSelect");
-			const childFranchiseId = isNaN(parseInt(seriesSelect.value)) ? null : parseInt(seriesSelect.value);
+			const childFranchiseId = seriesSelect === null || isNaN(parseInt(seriesSelect.value)) ? null : parseInt(seriesSelect.value);
 
 			document.getElementById("loader-container").style.display = "block";
 

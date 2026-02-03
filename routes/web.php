@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DirectController;
 use App\Http\Controllers\FranchiseController;
 use App\Http\Controllers\HomeController;
 
@@ -29,4 +30,7 @@ Route::get('/franchise-analysis-byid/{id}', [FranchiseController::class, 'getFra
 Route::get('/games', function(){
 	return view('game.games');
 });
+
+Route::get('/direct', [DirectController::class, 'index']);
+Route::post('/direct/search', [DirectController::class, 'search']);
 

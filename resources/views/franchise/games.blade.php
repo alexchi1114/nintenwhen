@@ -66,7 +66,7 @@
 			@php
 				$days_diff = 0;
 				if(isset($games[$i + 1])) {
-					$days_diff = $game->release_date->diffInDays($games[$i + 1]->release_date);
+					$days_diff = $game->release_date->diffInDays($games[$i + 1]->release_date, absolute: true);
 					$days_diff_years = $game->release_date->diff($games[$i + 1]->release_date)->format('%y');
 					$days_diff_months = $game->release_date->diff($games[$i + 1]->release_date)->format('%m');
 					$days_diff_days = $game->release_date->diff($games[$i + 1]->release_date)->format('%d');
