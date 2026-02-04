@@ -18,25 +18,7 @@
             <div class="card-body">
                 <h2 class="card-title">Upcoming Games</h2>
                 @foreach($upcoming_games as $game)
-                <div class="upcoming-game game-container">
-                    <h3 class="game-name">@if($game->external_link)<a href="{{ $game->external_link }}" target="_blank" rel="noopener noreferrer">{{ $game->name }} <i class="fas fa-external-link"></i></a>@else{{ $game->name }}@endif</h3>
-                    @if($game->release_date !== null)
-                        <div class="countdown-container" style="border-color:#{{ $game->franchise->primary_theme_color_hex }}; @if($game->img_path) background-image:url('{{ $game->img_path }}');@endif">
-                            <div class="countdown text-center" data-date="{{ $game->release_date }}" translate="no">
-                                <div class="digit">--<span class="letter">d</span></div>
-                                <div class="digit">--<span class="letter">h</span></div>
-                                <div class="digit">--<span class="letter">m</span></div>
-                                <div class="digit">--<span class="letter">s</span></div>
-                            </div>
-                            <div class="text-center"><strong>{{ $game->release_date->format('l, m/d/Y') }}</strong></div>
-                        </div>
-                    @elseif($game->release_date_tentative !== null)
-                        <div class="tbd" style="border-color:#{{ $game->franchise->primary_theme_color_hex }};@if($game->img_path) background-image:url('{{ $game->img_path }}');@endif"><span>{{ $game->release_date_tentative }}</span></div>
-                    @else
-                        <div class="tbd" style="border-color:#{{ $game->franchise->primary_theme_color_hex }}; @if($game->img_path) background-image:url('{{ $game->img_path }}');@endif"><span>TBA</span></div>
-                    @endif
-
-                </div>
+                    <x-game-release :game="$game" />
                 @endforeach
             </div>
         </div>

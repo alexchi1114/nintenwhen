@@ -132,73 +132,94 @@ a {
     &:not(:last-child) {
     	border-bottom: 1px solid lighten($gray, 56%);
     }
+}
 
+.game-tile {
+	display: block;
+	padding: 1.4rem 0;
+	text-decoration: none;
+	color: inherit;
 
-	&.upcoming-game {
+	&:not(:last-child) {
+		border-bottom: 1px solid lighten($gray, 56%);
+	}
 
-		.game-name {
-			font-family: 'Archivo Black', sans-serif;
+	&:hover {
+		text-decoration: none;
+
+		.countdown-container::before,
+		.tbd::before {
+			background: rgba(0, 0, 0, 0.75);
+		}
+	}
+
+	.game-name {
+		font-family: 'Archivo Black', sans-serif;
+		color:$white;
+		text-align: center;
+		font-size:2rem;
+	}
+
+	.countdown-container {
+		position: relative;
+		background-size: cover;
+		background-position: center;
+		border: none;
+		border-radius:5px;
+		padding:2rem 0.25rem;
+		color: #fff;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.6);
+			border-radius: 3px;
+			transition: background 0.2s ease;
 		}
 
-		.countdown-container {
+		> * {
 			position: relative;
-			background-size: cover;
-			background-position: center;
-			border: 2px solid;
-			border-radius:5px;
-			padding:2rem 0.25rem;
-			color: #fff;
-
-			&::before {
-				content: '';
-				position: absolute;
-				inset: 0;
-				background: rgba(0, 0, 0, 0.6);
-				border-radius: 3px;
-			}
-
-			> * {
-				position: relative;
-			}
 		}
+	}
 
-		.countdown {
+	.countdown {
 
-			.digit, .released {
-				display:inline-block;
-				font-size:2rem;
-				font-weight:bold;
-				padding: 0 0.5rem;
-
-				.letter {
-					font-size:0.5em;
-				}
-			}
-		}
-
-		.tbd {
-			position: relative;
-			background-size: cover;
-			background-position: center;
-			border: 2px solid;
-			border-radius:5px;
-			padding:2rem 0.25rem;
-			text-align:center;
+		.digit, .released {
+			display:inline-block;
 			font-size:2rem;
 			font-weight:bold;
-			color: #fff;
+			padding: 0 0.5rem;
 
-			&::before {
-				content: '';
-				position: absolute;
-				inset: 0;
-				background: rgba(0, 0, 0, 0.6);
-				border-radius: 3px;
+			.letter {
+				font-size:0.5em;
 			}
+		}
+	}
 
-			> span {
-				position: relative;
-			}
+	.tbd {
+		position: relative;
+		background-size: cover;
+		background-position: center;
+		border: none;
+		border-radius:5px;
+		padding:2rem 0.25rem;
+		text-align:center;
+		font-size:2rem;
+		font-weight:bold;
+		color: #fff;
+
+		&::before {
+			content: '';
+			position: absolute;
+			inset: 0;
+			background: rgba(0, 0, 0, 0.6);
+			border-radius: 3px;
+			transition: background 0.2s ease;
+		}
+
+		> * {
+			position: relative;
 		}
 	}
 }

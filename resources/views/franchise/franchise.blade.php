@@ -32,25 +32,7 @@
 			<div class="card-body">
 				<h2>Upcoming Games</h2>
 				@foreach($upcoming_games as $game)
-					<div class="upcoming-game game-container">
-						<h3 class="game-name">@if($game->external_link)<a href="{{ $game->external_link }}" target="_blank" rel="noopener noreferrer">{{ $game->name }} <i class="fa-solid fa-arrow-up-right-from-square"></i></a>@else{{ $game->name }}@endif</h3>
-						@if($game->release_date !== null)
-							<div class="countdown-container" style="color:#{{ $game->franchise->primary_theme_color_hex }}; border-color:#{{ $game->franchise->primary_theme_color_hex }};">
-								<div class="countdown text-center" data-date="{{ $game->release_date }}">
-									<div class="digit">--<span class="letter">d</span></div>
-									<div class="digit">--<span class="letter">h</span></div>
-									<div class="digit">--<span class="letter">m</span></div>
-									<div class="digit">--<span class="letter">s</span></div>
-								</div>
-                                <div class="text-center"><strong>{{ $game->release_date->format('m/d/Y') }}</strong></div>
-							</div>
-						@elseif($game->release_date_tentative !== null)
-							<div class="tbd">{{ $game->release_date_tentative }}</div>
-						@else
-							<div class="tbd">TBA</div>
-						@endif
-
-					</div>
+					<x-game-release :game="$game" />
 				@endforeach
 			</div>
 		</div>
