@@ -13,22 +13,6 @@
         </div>
     </div>
 
-    <div class="col-12">
-        <div class="card">
-            <div class="card-body">
-                <h2 class="card-title fs-2"><i class="fas fa-brain"></i> Nintenwhen Analysis</h2>
-                <p class="card-text" id="ai-analysis-container"></p>
-                <div class="d-flex justify-content-center">
-                    <div id="ai-analysis-loader" class='loader'>
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="col">
         <div class="card">
             <div class="card-body">
@@ -37,19 +21,19 @@
                 <div class="upcoming-game game-container">
                     <h3 class="game-name">@if($game->external_link)<a href="{{ $game->external_link }}" target="_blank" rel="noopener noreferrer">{{ $game->name }} <i class="fas fa-external-link"></i></a>@else{{ $game->name }}@endif</h3>
                     @if($game->release_date !== null)
-                        <div class="countdown-container" style="border-color:#{{ $game->franchise->primary_theme_color_hex }}; color:#{{ $game->franchise->primary_theme_color_hex }};">
+                        <div class="countdown-container" style="border-color:#{{ $game->franchise->primary_theme_color_hex }}; @if($game->img_path) background-image:url('{{ $game->img_path }}');@endif">
                             <div class="countdown text-center" data-date="{{ $game->release_date }}" translate="no">
                                 <div class="digit">--<span class="letter">d</span></div>
                                 <div class="digit">--<span class="letter">h</span></div>
                                 <div class="digit">--<span class="letter">m</span></div>
                                 <div class="digit">--<span class="letter">s</span></div>
                             </div>
-                            <div class="text-center"><strong>{{ $game->release_date->format('m/d/Y') }}</strong></div>
+                            <div class="text-center"><strong>{{ $game->release_date->format('l, m/d/Y') }}</strong></div>
                         </div>
                     @elseif($game->release_date_tentative !== null)
-                        <div class="tbd">{{ $game->release_date_tentative }}</div>
+                        <div class="tbd" style="border-color:#{{ $game->franchise->primary_theme_color_hex }};@if($game->img_path) background-image:url('{{ $game->img_path }}');@endif"><span>{{ $game->release_date_tentative }}</span></div>
                     @else
-                        <div class="tbd">TBA</div>
+                        <div class="tbd" style="border-color:#{{ $game->franchise->primary_theme_color_hex }}; @if($game->img_path) background-image:url('{{ $game->img_path }}');@endif"><span>TBA</span></div>
                     @endif
 
                 </div>
@@ -61,9 +45,10 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                <h2>Direct Predictions</h2>
+                <h2>Nintendo Direct</h2>
                 <p class="mb-3"><a class="btn btn-primary" href="/direct">View all directs</a></p>
                 @foreach($direct_predictions as $prediction)
+                @continue($prediction['tag']->code !== 'nintendo-direct')
                 <div class="franchise-container py-4">
                     <h3 class="franchise-title">
                         <span class="badge" style="background-color:#{{ $prediction['tag']->color_hex }}">{{ $prediction['tag']->display_name }}</span>
@@ -191,6 +176,22 @@
                     </div>
                 </div>
                 @endforeach
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title fs-2"><i class="fas fa-brain"></i> Nintenwhen Analysis</h2>
+                <p class="card-text" id="ai-analysis-container"></p>
+                <div class="d-flex justify-content-center">
+                    <div id="ai-analysis-loader" class='loader'>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

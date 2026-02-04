@@ -141,11 +141,25 @@ a {
 		}
 
 		.countdown-container {
-			background-color:$white;
+			position: relative;
+			background-size: cover;
+			background-position: center;
 			border: 2px solid;
-			color:#fff;
 			border-radius:5px;
-			padding:0 0.25rem;
+			padding:2rem 0.25rem;
+			color: #fff;
+
+			&::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.6);
+				border-radius: 3px;
+			}
+
+			> * {
+				position: relative;
+			}
 		}
 
 		.countdown {
@@ -163,9 +177,28 @@ a {
 		}
 
 		.tbd {
+			position: relative;
+			background-size: cover;
+			background-position: center;
+			border: 2px solid;
+			border-radius:5px;
+			padding:2rem 0.25rem;
 			text-align:center;
 			font-size:2rem;
 			font-weight:bold;
+			color: #fff;
+
+			&::before {
+				content: '';
+				position: absolute;
+				inset: 0;
+				background: rgba(0, 0, 0, 0.6);
+				border-radius: 3px;
+			}
+
+			> span {
+				position: relative;
+			}
 		}
 	}
 }
