@@ -26,12 +26,12 @@ if ($game->img_path) {
         </div>
     @elseif($game->release_date_tentative !== null)
         <div class="tbd" style="{{ $containerStyle }}">
-            <h3 class="game-name">{{ $game->name }}@if($game->external_link) <i class="fas fa-external-link"></i>@endif</h3>
+            <h3 class="game-name">{{ $game->name }}@if($game->external_link) @endif</h3>
             <span>{{ $game->release_date_tentative }}</span>
         </div>
     @else
         <div class="tbd" style="{{ $containerStyle }}">
-            <h3 class="game-name">{{ $game->name }}@if($game->external_link) <i class="fas fa-external-link"></i>@endif</h3>
+            <h3 class="game-name">{{ $game->name }}@if($game->external_link) @endif</h3>
             <span>TBA</span>
         </div>
     @endif
