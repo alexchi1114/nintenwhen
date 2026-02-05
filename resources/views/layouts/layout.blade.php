@@ -11,6 +11,7 @@
   <body>
 
     @include('includes.Header')
+    @include('includes.direct-banner')
 
     <main class="container-lg pb-5" id="main">
       @yield('content')

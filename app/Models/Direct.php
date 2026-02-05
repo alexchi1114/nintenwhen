@@ -72,4 +72,11 @@ class Direct extends Model
 
         return $max_days_between;
     }
+
+    public static function getUpcomingDirect()
+    {
+        return self::where('start_time', '>', Carbon::now())
+            ->orderBy('start_time', 'asc')
+            ->first();
+    }
 }

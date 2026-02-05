@@ -30,7 +30,6 @@
                 <h2>Nintendo Direct</h2>
                 <p class="mb-3"><a class="btn btn-primary" href="/direct">View all directs</a></p>
                 @foreach($direct_predictions as $prediction)
-                @continue($prediction['tag']->code !== 'nintendo-direct')
                 <div class="franchise-container py-4">
                     <h3 class="franchise-title">
                         <span class="badge" style="background-color:#{{ $prediction['tag']->color_hex }}">{{ $prediction['tag']->display_name }}</span>
