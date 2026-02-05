@@ -139,12 +139,6 @@ a {
 	}
 }
 
-body:has(.direct-banner) {
-	main {
-		margin-top: calc(1rem + 50px);
-	}
-}
-
 .page-title {
 	color:$black;
 	margin:1.5rem 0;
