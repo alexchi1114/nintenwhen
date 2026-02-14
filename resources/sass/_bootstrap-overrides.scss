@@ -4,6 +4,7 @@ $card-border-radius:15px;
 $card-border-color:rgba($dark-red, 0.175);
 $card-cap-bg:$joycon-blue-dark;
 $card-cap-color:$off-white;
+$card-cap-padding-y:0.25rem;
 
 /* Forms */
 $input-color: $dark-red;
@@ -12,11 +13,11 @@ $input-border-color: rgba($red, 0.3);
 
 /* Breadcrumbs */
 $breadcrumb-bg: $dark-red;
-$breadcrumb-border-radius:2rem;
+$breadcrumb-border-radius:0.5rem;
 $breadcrumb-divider-color:$off-white;
 $breadcrumb-active-color:$off-white;
 $breadcrumb-padding-y:0.5rem;
-$breadcrumb-padding-x:0.5rem;
+$breadcrumb-padding-x:1rem;
 
 .breadcrumb {
 	display:inline-flex !important;

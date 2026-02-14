@@ -25,21 +25,9 @@
 				 $avg_width = $franchise->getMaxDaysBetweenReleases() > 0 ? $franchise->getAvgDaysBetweenReleases() / $franchise->getMaxDaysBetweenReleases() : 0;
 				@endphp
 			<div class="col col-6 col-sm-4 col-md-3 col-lg-2 d-flex p-3 franchise-overview-card-column" data-name="{{ strtolower($franchise->name) }}">
-				<a class="card w-100 franchise-overview-card text-decoration-none" href="/franchise/{{ $franchise->id }}">
-					<h2 class="card-header">{{ $franchise->name }}</h2>
+				<a class="card w-100 franchise-overview-card text-decoration-none" href="/franchise/{{ $franchise->id }}" @if($franchise->img_path) style="background-image:url('{{ $franchise->img_path }}');" @endif>
+					<h2 class="card-header" style="background-color:#{{ $franchise->primary_theme_color_hex }};">{{ $franchise->name }}</h2>
 					<div class="card-body">
-						<div class="face-status {{ $franchise->getStatus() }}">
-							@if($franchise->getStatus() == "good")
-								<i class="fas fa-smile"></i>
-							@elseif($franchise->getStatus() == "neutral")
-								<i class="fas fa-meh"></i>
-							@elseif($franchise->getStatus() == "bad")
-								<i class="fas fa-frown"></i>
-							@elseif($franchise->getStatus() == "dead")
-								<i class="fas fa-dizzy"></i>
-							@endif
-						</div>
-
 						<h3 class="mb-0">Since Last Release</h3>
 						<div class="game-diff-container">
 							@php
