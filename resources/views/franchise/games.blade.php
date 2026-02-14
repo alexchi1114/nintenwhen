@@ -92,9 +92,15 @@
 						{{ $game->release_date === null ? "TBA" : $game->release_date->format('M d Y')}}
 					</div>
 					<div>
-
 						{{ $game->systems->implode('name', '/') }}
 					</div>
+					@if($game->developers->count() > 0)
+						<div>
+							@foreach($game->developers as $developer)
+								<a href="/developer/{{ $developer->id }}">{{ $developer->name }}</a>@if(!$loop->last), @endif
+							@endforeach
+						</div>
+					@endif
 				</div>
 				<div class="col-12 col-md-6 d-flex flex-column justify-content-center">
 					<div class="game-diff-container">
