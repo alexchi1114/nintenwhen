@@ -309,63 +309,29 @@ a {
 }
 
 .franchise-overview-card {
-	position: relative;
 	font-size:0.8rem;
 	font-weight:bold;
 	text-align:center;
-	background-size: cover;
-	background-position: center;
-	overflow: hidden;
-
-	.card-header {
-		position: relative;
-		border-bottom: none;
-		z-index: 1;
-		min-height: 3rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+	color:black;
 
 	h2 {
 		font-size:0.8rem;
 		font-weight:bold;
-		color: white;
-		margin: 0;
-	}
-
-	.card-body {
-		position: relative;
-		color: white;
-
-		&::before {
-			content: '';
-			position: absolute;
-			inset: 0;
-			background: rgba(0, 0, 0, 0.6);
-			transition: background 0.2s ease;
-		}
-
-		> * {
-			position: relative;
-		}
 	}
 
 	h3 {
-		font-size:0.8rem;
-		color: white;
+	font-size:0.8rem;
 	}
 
 	.game-diff-container {
 		font-size:0.7rem;
 	}
 
+	transition:background-color 0.10s ease-in;
+
 	&:hover {
 		text-decoration:none;
-
-		.card-body::before {
-			background: rgba(0, 0, 0, 0.75);
-		}
+		background-color:rgba($gray, 0.1);
 	}
 }
 

@@ -25,8 +25,8 @@
 				 $avg_width = $developer->getMaxDaysBetweenReleases() > 0 ? $developer->getAvgDaysBetweenReleases() / $developer->getMaxDaysBetweenReleases() : 0;
 				@endphp
 			<div class="col col-6 col-sm-4 col-md-3 col-lg-2 d-flex p-3 franchise-overview-card-column" data-name="{{ strtolower($developer->name) }}">
-				<a class="card w-100 franchise-overview-card text-decoration-none" href="/developer/{{ $developer->id }}" @if($developer->img_path) style="background-image:url('{{ $developer->img_path }}');" @endif>
-					<h2 class="card-header" style="background-color:#{{ $developer->primary_theme_color_hex }};">{{ $developer->name }}</h2>
+				<a class="card w-100 franchise-overview-card text-decoration-none" href="/developer/{{ $developer->id }}">
+					<h2 class="card-header">{{ $developer->name }}</h2>
 					<div class="card-body">
 						<h3 class="mb-0">Since Last Release</h3>
 						<div class="game-diff-container">
