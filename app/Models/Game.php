@@ -27,6 +27,11 @@ class Game extends Model
 		return $this->belongsToMany(System::class);
 	}
 
+	public function developers()
+	{
+		return $this->belongsToMany(Developer::class, 'game_developer')->withPivot('type');
+	}
+
 	public static function getDaysSinceLastRelease($games)
 	{	
 		$games = $games->sort(function($a, $b){

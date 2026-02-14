@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DirectController;
 use App\Http\Controllers\FranchiseController;
+use App\Http\Controllers\DeveloperController;
 use App\Http\Controllers\HomeController;
 
 /*
@@ -26,6 +27,10 @@ Route::get('/franchise-analysis-streamed', [FranchiseController::class, 'streamF
 Route::get('/franchise-analysis', [FranchiseController::class, 'getFranchiseAnalysis'])->name('franchise.analysis');
 Route::get('/franchise-analysis-byid/{id}', [FranchiseController::class, 'getFranchiseAnalysisById'])->name('franchise.analysis.byid');
 
+
+Route::get('/developer', [DeveloperController::class, 'index'])->name('developer.index');
+Route::get('/developer/{id}', [DeveloperController::class, 'show'])->name('developer.show');
+Route::post('/developer/search', [DeveloperController::class, 'search'])->name('developer.search');
 
 Route::get('/games', function(){
 	return view('game.games');

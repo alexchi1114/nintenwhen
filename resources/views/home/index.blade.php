@@ -161,6 +161,75 @@
         </div>
     </div>
 
+    @if(count($developers_to_watch) > 0)
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h2>Developers to Watch</h2>
+                @foreach($developers_to_watch as $developer)
+                <div class="franchise-container py-4">
+                    <h3 class="franchise-title"><a href="/developer/{{ $developer->id }}">{{ $developer->name }}</a></h3>
+                    <h4 class="mb-0">Since Last Release</h4>
+                    <div class="game-diff-container">
+                        @php
+                            $dev_since_width = $developer->getMaxDaysBetweenReleases() > 0 ? $developer->getDaysSinceLastRelease() / $developer->getMaxDaysBetweenReleases() : 0;
+
+                            $dev_avg_width = $developer->getMaxDaysBetweenReleases() > 0 ? $developer->getAvgDaysBetweenReleases() / $developer->getMaxDaysBetweenReleases() : 0;
+
+                            $dev_last_release_years = \Carbon\Carbon::now()->subDays($developer->getDaysSinceLastRelease())->diff()->format('%y');
+                            $dev_last_release_months = \Carbon\Carbon::now()->subDays($developer->getDaysSinceLastRelease())->diff()->format('%m');
+                            $dev_last_release_days = \Carbon\Carbon::now()->subDays($developer->getDaysSinceLastRelease())->diff()->format('%d');
+
+                            $dev_avg_release_years = \Carbon\Carbon::now()->subDays($developer->getAvgDaysBetweenReleases())->diff()->format('%y');
+                            $dev_avg_release_months = \Carbon\Carbon::now()->subDays($developer->getAvgDaysBetweenReleases())->diff()->format('%m');
+                            $dev_avg_release_days = \Carbon\Carbon::now()->subDays($developer->getAvgDaysBetweenReleases())->diff()->format('%d');
+                        @endphp
+
+                        @if($dev_last_release_years != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num">{{ $dev_last_release_years }} </span>y</div>
+                        @endif
+
+                        @if($dev_last_release_months != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $dev_last_release_months }} </span>m</div>
+                        @endif
+
+                        @if($dev_last_release_days != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $dev_last_release_days }} </span>d</div>
+                        @endif
+                    </div>
+                    <div class="days-bar mb-2">
+                        <div class="left" style="background-color:#{{$developer->primary_theme_color_hex}};"></div>
+                        <div class="center" data-width="{{ $dev_since_width }}" style="background-color:#{{$developer->primary_theme_color_hex}};"></div>
+                        <div class="right" style="background-color:#{{$developer->primary_theme_color_hex}};"></div>
+                    </div>
+
+                    <h4 class="mb-0">Average</h4>
+                    <div class="game-diff-container">
+                        @if($dev_avg_release_years != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num">{{ $dev_avg_release_years }} </span>y</div>
+                        @endif
+
+                        @if($dev_avg_release_months != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $dev_avg_release_months }} </span>m</div>
+                        @endif
+
+                        @if($dev_avg_release_days != "0")
+                            <div class="game-diff-num-container"><span class="game-diff-num"> {{ $dev_avg_release_days }} </span>d</div>
+                        @endif
+                    </div>
+
+                    <div class="days-bar">
+                        <div class="left" style="background-color:#{{$developer->primary_theme_color_hex}};"></div>
+                        <div class="center" data-width="{{ $dev_avg_width }}" style="background-color:#{{$developer->primary_theme_color_hex}};"></div>
+                        <div class="right" style="background-color:#{{$developer->primary_theme_color_hex}};"></div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    @endif
+
     <div class="col-12">
         <div class="card">
             <div class="card-body">
