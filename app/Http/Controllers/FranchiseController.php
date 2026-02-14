@@ -19,7 +19,7 @@ class FranchiseController extends Controller
      */
     public function index()
     {
-        $franchises = Franchise::whereNull('parent_franchise_id')->orderBy('name')->get();
+        $franchises = Franchise::whereNull('parent_franchise_id')->with('games')->orderBy('name')->get();
         return view('franchise.index', ['franchises' => $franchises]);
     }
 

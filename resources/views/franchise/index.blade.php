@@ -20,22 +20,26 @@
 		<div class="row d-flex">
 			@foreach($franchises as $franchise)
 				@php
-				 $since_width = $franchise->getMaxDaysBetweenReleases() > 0 ? $franchise->getDaysSinceLastRelease() / $franchise->getMaxDaysBetweenReleases() : 0;
+				 $days_since = $franchise->getDaysSinceLastRelease();
+				 $avg_days = $franchise->getAvgDaysBetweenReleases();
+				 $max_days = $franchise->getMaxDaysBetweenReleases();
+				 $status = $franchise->getStatus();
 
-				 $avg_width = $franchise->getMaxDaysBetweenReleases() > 0 ? $franchise->getAvgDaysBetweenReleases() / $franchise->getMaxDaysBetweenReleases() : 0;
+				 $since_width = $max_days > 0 ? $days_since / $max_days : 0;
+				 $avg_width = $max_days > 0 ? $avg_days / $max_days : 0;
 				@endphp
 			<div class="col col-6 col-sm-4 col-md-3 col-lg-2 d-flex p-3 franchise-overview-card-column" data-name="{{ strtolower($franchise->name) }}">
 				<a class="card w-100 franchise-overview-card text-decoration-none" href="/franchise/{{ $franchise->id }}">
 					<h2 class="card-header">{{ $franchise->name }}</h2>
 					<div class="card-body">
-						<div class="face-status {{ $franchise->getStatus() }}">
-							@if($franchise->getStatus() == "good")
+						<div class="face-status {{ $status }}">
+							@if($status == "good")
 								<i class="fas fa-smile"></i>
-							@elseif($franchise->getStatus() == "neutral")
+							@elseif($status == "neutral")
 								<i class="fas fa-meh"></i>
-							@elseif($franchise->getStatus() == "bad")
+							@elseif($status == "bad")
 								<i class="fas fa-frown"></i>
-							@elseif($franchise->getStatus() == "dead")
+							@elseif($status == "dead")
 								<i class="fas fa-dizzy"></i>
 							@endif
 						</div>
@@ -43,13 +47,15 @@
 						<h3 class="mb-0">Since Last Release</h3>
 						<div class="game-diff-container">
 							@php
-								$last_release_years = \Carbon\Carbon::now()->subDays($franchise->getDaysSinceLastRelease())->diff()->format('%y');
-								$last_release_months = \Carbon\Carbon::now()->subDays($franchise->getDaysSinceLastRelease())->diff()->format('%m');
-								$last_release_days = \Carbon\Carbon::now()->subDays($franchise->getDaysSinceLastRelease())->diff()->format('%d');
+								$last_release_diff = \Carbon\Carbon::now()->subDays($days_since)->diff();
+								$last_release_years = $last_release_diff->format('%y');
+								$last_release_months = $last_release_diff->format('%m');
+								$last_release_days = $last_release_diff->format('%d');
 
-								$avg_release_years = \Carbon\Carbon::now()->subDays($franchise->getAvgDaysBetweenReleases())->diff()->format('%y');
-								$avg_release_months = \Carbon\Carbon::now()->subDays($franchise->getAvgDaysBetweenReleases())->diff()->format('%m');
-								$avg_release_days = \Carbon\Carbon::now()->subDays($franchise->getAvgDaysBetweenReleases())->diff()->format('%d');
+								$avg_release_diff = \Carbon\Carbon::now()->subDays($avg_days)->diff();
+								$avg_release_years = $avg_release_diff->format('%y');
+								$avg_release_months = $avg_release_diff->format('%m');
+								$avg_release_days = $avg_release_diff->format('%d');
 							@endphp
 
 							@if($last_release_years != "0")

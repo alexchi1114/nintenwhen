@@ -7,6 +7,7 @@ use App\Models\Game;
 
 class Developer extends Model
 {
+    protected $cachedReleasedGames = null;
 
     public function games()
     {
@@ -14,10 +15,16 @@ class Developer extends Model
     }
 
     public function getAllReleasedGames() {
-        return $this->games()
+        if ($this->cachedReleasedGames !== null) {
+            return $this->cachedReleasedGames;
+        }
+
+        $this->cachedReleasedGames = $this->games()
             ->where('is_upcoming', '=', '0')
             ->orderByRaw('release_date DESC')
             ->get();
+
+        return $this->cachedReleasedGames;
     }
 
     public function getUpcomingGames() {
@@ -77,7 +84,7 @@ class Developer extends Model
 
     public static function getDevelopersToWatch()
     {
-        $developers = Developer::where('is_active', true)->get()->filter(function($developer) {
+        $developers = Developer::where('is_active', true)->with('games.tags')->get()->filter(function($developer) {
             if($developer->games->count() === 0) {
                 return false;
             }

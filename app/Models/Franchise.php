@@ -7,6 +7,7 @@ use App\Models\Game;
 
 class Franchise extends Model
 {
+    protected $cachedReleasedGames = null;
 
     //Accessors
     public function getPrimaryThemeColorHexAttribute($value)
@@ -27,8 +28,12 @@ class Franchise extends Model
     }
 
     public function getAllReleasedGames() {
+        if ($this->cachedReleasedGames !== null) {
+            return $this->cachedReleasedGames;
+        }
+
     	$franchise = $this;
-    	return Game::select('games.*')
+    	$this->cachedReleasedGames = Game::select('games.*')
             ->join('franchises', 'games.franchise_id', '=', 'franchises.id')
             ->where(function($q) use($franchise) {
                 $q->where('franchise_id', $franchise->id)
@@ -36,6 +41,8 @@ class Franchise extends Model
             })
             ->where('is_upcoming', '=', '0')
             ->orderByRaw('release_date DESC')->get();
+
+        return $this->cachedReleasedGames;
     }
 
     public function getUpcomingGames() {
@@ -97,7 +104,7 @@ class Franchise extends Model
 
     public static function getFranchisesToWatch()
     {   
-    	$franchises = Franchise::all()->filter(function($franchise) {
+    	$franchises = Franchise::with('games.tags')->get()->filter(function($franchise) {
             if($franchise->games->count() === 0 || ($franchise->parent_franchise_id == null && $franchise->where('parent_franchise_id', $franchise->id)->count() > 0)) {
                 return false;
             }

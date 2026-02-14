@@ -48,10 +48,14 @@ class DirectController extends Controller
     public static function getPredictions()
     {
         $predictions = [];
-        $tags = DirectTag::where('is_active', true)->orderBy('display_order')->get();
+        $tags = DirectTag::where('is_active', true)->orderBy('display_order')
+            ->with(['directs' => function($query) {
+                $query->orderBy('start_time', 'DESC');
+            }])
+            ->get();
 
         foreach ($tags as $tag) {
-            $directs = $tag->directs()->orderBy('start_time', 'DESC')->get();
+            $directs = $tag->directs;
 
             if ($directs->count() === 0) {
                 continue;
